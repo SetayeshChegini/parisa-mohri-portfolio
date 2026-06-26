@@ -1,121 +1,133 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
 import './App.css'
 
+const projects = [
+  {
+    title: 'Signal studio',
+    meta: 'Brand system / Web direction',
+    description:
+      'A sharp, cinematic identity system with focused layouts, quiet motion, and editorial rhythm.',
+  },
+  {
+    title: 'Nocturne archive',
+    meta: 'Portfolio / Visual research',
+    description:
+      'A dark, minimal gallery for selected work, designed around atmosphere, pacing, and restraint.',
+  },
+  {
+    title: 'Glass index',
+    meta: 'Interface / Art direction',
+    description:
+      'A structured digital surface with layered navigation, luminous states, and tactile interactions.',
+  },
+]
+
+const skills = ['Art direction', 'Visual identity', 'Digital design', 'Interaction', 'Layout systems']
+
 function App() {
-  const [count, setCount] = useState(0)
+  const handlePointerMove = (event) => {
+    const x = `${Math.round((event.clientX / window.innerWidth) * 100)}%`
+    const y = `${Math.round((event.clientY / window.innerHeight) * 100)}%`
+
+    event.currentTarget.style.setProperty('--pointer-x', x)
+    event.currentTarget.style.setProperty('--pointer-y', y)
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <main className="site-shell" onPointerMove={handlePointerMove}>
+      <div className="smoke smoke-a" aria-hidden="true"></div>
+      <div className="smoke smoke-b" aria-hidden="true"></div>
+
+      <nav className="topbar" aria-label="Primary navigation">
+        <a className="brand halo-link" href="#home" aria-label="Parisa Mohri home">
+          PM
+        </a>
+        <div className="nav-links">
+          <a className="halo-link" href="#work">
+            Work
+          </a>
+          <a className="halo-link" href="#profile">
+            Profile
+          </a>
+          <a className="halo-link" href="#contact">
+            Contact
+          </a>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+      </nav>
+
+      <section className="hero-section" id="home">
+        <div className="hero-copy">
+          <p className="eyebrow">Portfolio / Visual designer</p>
+          <h1>Parisa Mohri</h1>
+          <p className="lead">
+            Minimal digital worlds for brands, portfolios, and visual systems that need mood,
+            clarity, and a little voltage in the dark.
           </p>
+          <div className="hero-actions" aria-label="Portfolio actions">
+            <a className="primary-action halo-link" href="#work">
+              View work
+            </a>
+            <a className="secondary-action halo-link" href="#contact">
+              Start a project
+            </a>
+          </div>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+        <div className="hero-visual" aria-label="Abstract smoky portfolio mark">
+          <div className="orbital orbital-one"></div>
+          <div className="orbital orbital-two"></div>
+          <img src={heroImg} alt="" />
+          <div className="visual-caption">
+            <span>Selected direction</span>
+            <strong>2026</strong>
+          </div>
         </div>
       </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+      <section className="profile-strip" id="profile" aria-label="Design approach">
+        <p>
+          Immersive does not need to be loud. The work here is built with tension, negative
+          space, precise typography, and interactions that feel like light passing through smoke.
+        </p>
+        <div className="skill-cloud" aria-label="Capabilities">
+          {skills.map((skill) => (
+            <span className="skill-pill" key={skill}>
+              {skill}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <section className="work-section" id="work">
+        <div className="section-heading">
+          <p className="eyebrow">Selected work</p>
+          <h2>Quiet interfaces with a cinematic edge.</h2>
+        </div>
+
+        <div className="project-list">
+          {projects.map((project, index) => (
+            <article className="project-card halo-card" key={project.title}>
+              <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
+              <div>
+                <p className="project-meta">{project.meta}</p>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="contact-section" id="contact" aria-label="Contact">
+        <div>
+          <p className="eyebrow">Open for selected work</p>
+          <h2>Let the next piece feel sharper, darker, and more alive.</h2>
+        </div>
+        <a className="contact-action halo-link" href="#home">
+          Begin
+        </a>
+      </section>
+    </main>
   )
 }
 
