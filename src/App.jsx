@@ -7,10 +7,10 @@ const imagePath = (filename) => `${import.meta.env.BASE_URL}images/${filename}`
 
 const projects = [
   {
-    title: 'Signal Studio',
+    title: 'Bloom',
     number: '01',
-    category: 'Brand Identity — Art Direction',
-    image: imagePath('signal-studio.png'),
+    category: 'Product Design — UX/UI',
+    image: imagePath('bloom.png'),
   },
   {
     title: 'Glitch',
