@@ -19,10 +19,10 @@ const projects = [
     image: imagePath('glitch-energy.png'),
   },
   {
-    title: 'Nocturne Archive',
+    title: 'Naturecycle',
     number: '03',
-    category: 'Visual Research — Concept',
-    image: imagePath('nocturne-archive.png'),
+    category: 'Product Design — Sustainable Beauty',
+    image: imagePath('naturecycle.png'),
   },
   {
     title: 'Glass Index',
@@ -77,6 +77,7 @@ function ProjectCard({ project, index }) {
       <div className="project-image-wrap">
         <ImageSmearCanvas
           sourceImage={project.image}
+          imageFit="contain"
           scrollAssembly={scrollAssembly}
           gridDensity={30}
           smearStrength={1.5}

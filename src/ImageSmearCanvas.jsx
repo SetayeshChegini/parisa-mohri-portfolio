@@ -11,6 +11,7 @@ const defaults = {
 function ImageSmearCanvas({
   sourceImage,
   className = '',
+  imageFit = 'cover',
   scrollAssembly = 1,
   gridDensity = defaults.gridDensity,
   smearStrength = defaults.smearStrength,
@@ -49,21 +50,24 @@ function ImageSmearCanvas({
     const buildParticles = () => {
       if (!image) return
       const bounds = canvas.getBoundingClientRect()
-      const dpr = Math.min(window.devicePixelRatio || 1, 2)
+      const dpr = Math.min(window.devicePixelRatio || 1, 3)
       canvas.width = Math.max(1, Math.round(bounds.width * dpr))
       canvas.height = Math.max(1, Math.round(bounds.height * dpr))
+      ctx.imageSmoothingEnabled = true
+      ctx.imageSmoothingQuality = 'high'
 
-      const scale = Math.max(canvas.width / image.width, canvas.height / image.height)
+      const scaleMethod = imageFit === 'contain' ? Math.min : Math.max
+      const scale = scaleMethod(canvas.width / image.width, canvas.height / image.height)
       const imageWidth = image.width * scale
       const imageHeight = image.height * scale
       const imageX = (canvas.width - imageWidth) / 2
       const imageY = (canvas.height - imageHeight) / 2
       const columns = Math.max(16, Math.round(gridDensity))
-      const rows = Math.max(12, Math.round(columns * canvas.height / canvas.width))
-      const cellWidth = canvas.width / columns
-      const cellHeight = canvas.height / rows
-      const sourceCellWidth = cellWidth / scale
-      const sourceCellHeight = cellHeight / scale
+      const rows = Math.max(12, Math.round(columns * imageHeight / imageWidth))
+      const cellWidth = imageWidth / columns
+      const cellHeight = imageHeight / rows
+      const sourceCellWidth = image.width / columns
+      const sourceCellHeight = image.height / rows
 
       canvas.dataset.imageX = imageX
       canvas.dataset.imageY = imageY
@@ -73,10 +77,10 @@ function ImageSmearCanvas({
 
       for (let row = 0; row < rows; row += 1) {
         for (let column = 0; column < columns; column += 1) {
-          const x = (column + 0.5) * cellWidth
-          const y = (row + 0.5) * cellHeight
-          const sourceX = (column * cellWidth - imageX) / scale
-          const sourceY = (row * cellHeight - imageY) / scale
+          const x = imageX + (column + 0.5) * cellWidth
+          const y = imageY + (row + 0.5) * cellHeight
+          const sourceX = column * sourceCellWidth
+          const sourceY = row * sourceCellHeight
           const angle = Math.atan2(y - canvas.height / 2, x - canvas.width / 2)
           const variation = ((row * 17 + column * 29) % 11) / 10
           const distance = (24 + variation * 38) * dpr
@@ -143,6 +147,22 @@ function ImageSmearCanvas({
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.globalAlpha = 1
+      if (imageFit === 'contain') {
+        const backdropScale = Math.max(canvas.width / image.width, canvas.height / image.height)
+        const backdropWidth = image.width * backdropScale
+        const backdropHeight = image.height * backdropScale
+        ctx.save()
+        ctx.globalAlpha = 0.22
+        ctx.filter = `blur(${18 * Math.min(window.devicePixelRatio || 1, 3)}px) brightness(0.58)`
+        ctx.drawImage(
+          image,
+          (canvas.width - backdropWidth) / 2,
+          (canvas.height - backdropHeight) / 2,
+          backdropWidth,
+          backdropHeight,
+        )
+        ctx.restore()
+      }
       ctx.drawImage(
         image,
         Number(canvas.dataset.imageX),
@@ -282,7 +302,7 @@ function ImageSmearCanvas({
       canvas.removeEventListener('pointermove', handlePointerMove)
       canvas.removeEventListener('pointerleave', handlePointerLeave)
     }
-  }, [gridDensity, interactionRadius, returnSpeed, smearStrength, sourceImage, trailLength])
+  }, [gridDensity, imageFit, interactionRadius, returnSpeed, smearStrength, sourceImage, trailLength])
 
   return <canvas ref={canvasRef} className={className} aria-hidden="true" />
 }
