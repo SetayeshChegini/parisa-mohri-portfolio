@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from 'react'
 import heroImg from './assets/hero.png'
 import ImageSmearCanvas from './ImageSmearCanvas'
 import './App.css'
@@ -11,79 +10,50 @@ const projects = [
     number: '01',
     category: 'Product Design — UX/UI',
     image: imagePath('bloom.png'),
+    aspectRatio: '1122 / 1402',
   },
   {
     title: 'Glitch',
     number: '02',
     category: 'Packaging Design — Visual System',
     image: imagePath('glitch-energy.png'),
+    aspectRatio: '1122 / 1402',
   },
   {
     title: 'Naturecycle',
     number: '03',
     category: 'Product Design — Sustainable Beauty',
     image: imagePath('naturecycle.png'),
+    aspectRatio: '1491 / 1055',
   },
   {
     title: 'Glass Index',
     number: '04',
     category: 'Web Design — Art Direction',
     image: imagePath('glass-index.png'),
+    aspectRatio: '343 / 361',
   },
   {
     title: 'Afterimage',
     number: '05',
     category: 'Design System — Creative Direction',
     image: imagePath('afterimage.png'),
+    aspectRatio: '343 / 361',
   },
 ]
 
 function ProjectCard({ project, index }) {
-  const cardRef = useRef(null)
-  const [scrollAssembly, setScrollAssembly] = useState(0)
-
-  useEffect(() => {
-    let frameId = 0
-
-    const updateAssembly = () => {
-      frameId = 0
-      const card = cardRef.current
-      if (!card) return
-
-      const bounds = card.getBoundingClientRect()
-      const start = window.innerHeight * 1.02
-      const finish = window.innerHeight * 0.58
-      const progress = Math.min(1, Math.max(0, (start - bounds.top) / (start - finish)))
-      setScrollAssembly((current) => (Math.abs(current - progress) > 0.005 ? progress : current))
-    }
-
-    const requestUpdate = () => {
-      if (!frameId) frameId = requestAnimationFrame(updateAssembly)
-    }
-
-    updateAssembly()
-    window.addEventListener('scroll', requestUpdate, { passive: true })
-    window.addEventListener('resize', requestUpdate)
-
-    return () => {
-      cancelAnimationFrame(frameId)
-      window.removeEventListener('scroll', requestUpdate)
-      window.removeEventListener('resize', requestUpdate)
-    }
-  }, [])
-
   return (
-    <article ref={cardRef} className={`project-card project-card-${index + 1}`}>
-      <div className="project-image-wrap">
+    <article className={`project-card project-card-${index + 1}`}>
+      <div className="project-image-wrap" style={{ aspectRatio: project.aspectRatio }}>
         <ImageSmearCanvas
           sourceImage={project.image}
           imageFit="contain"
-          scrollAssembly={scrollAssembly}
-          gridDensity={30}
-          smearStrength={1.5}
-          returnSpeed={0.07}
-          trailLength={0.8}
-          interactionRadius={120}
+          gridDensity={18}
+          smearStrength={1}
+          returnSpeed={0.08}
+          trailLength={0.7}
+          interactionRadius={110}
           colorMode="original"
         />
       </div>

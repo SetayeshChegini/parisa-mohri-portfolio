@@ -1,18 +1,17 @@
 import { useEffect, useRef } from 'react'
 
 const defaults = {
-  gridDensity: 30,
-  smearStrength: 1.5,
-  returnSpeed: 0.07,
-  trailLength: 0.8,
-  interactionRadius: 120,
+  gridDensity: 18,
+  smearStrength: 1,
+  returnSpeed: 0.08,
+  trailLength: 0.7,
+  interactionRadius: 110,
 }
 
 function ImageSmearCanvas({
   sourceImage,
   className = '',
   imageFit = 'cover',
-  scrollAssembly = 1,
   gridDensity = defaults.gridDensity,
   smearStrength = defaults.smearStrength,
   returnSpeed = defaults.returnSpeed,
@@ -20,11 +19,6 @@ function ImageSmearCanvas({
   interactionRadius = defaults.interactionRadius,
 }) {
   const canvasRef = useRef(null)
-  const assemblyRef = useRef(scrollAssembly)
-
-  useEffect(() => {
-    assemblyRef.current = scrollAssembly
-  }, [scrollAssembly])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -35,7 +29,7 @@ function ImageSmearCanvas({
     let image
     let particles = []
     let isVisible = false
-    let renderedAssembly = assemblyRef.current
+    let effectAlpha = 0
     const pointer = {
       x: 0,
       y: 0,
@@ -44,7 +38,6 @@ function ImageSmearCanvas({
       vx: 0,
       vy: 0,
       active: false,
-      lastActiveTime: 0,
     }
 
     const buildParticles = () => {
@@ -81,19 +74,11 @@ function ImageSmearCanvas({
           const y = imageY + (row + 0.5) * cellHeight
           const sourceX = column * sourceCellWidth
           const sourceY = row * sourceCellHeight
-          const angle = Math.atan2(y - canvas.height / 2, x - canvas.width / 2)
-          const variation = ((row * 17 + column * 29) % 11) / 10
-          const distance = (24 + variation * 38) * dpr
-          const disperseX = Math.cos(angle + variation * 0.45) * distance
-          const disperseY = Math.sin(angle - variation * 0.35) * distance
-          const assembly = assemblyRef.current
           particles.push({
-            x: x + disperseX * (1 - assembly),
-            y: y + disperseY * (1 - assembly),
+            x,
+            y,
             originX: x,
             originY: y,
-            disperseX,
-            disperseY,
             vx: 0,
             vy: 0,
             sourceX,
@@ -118,7 +103,6 @@ function ImageSmearCanvas({
     const handlePointerEnter = (event) => {
       const next = getPointer(event)
       Object.assign(pointer, next, { lastX: next.x, lastY: next.y, active: true })
-      pointer.lastActiveTime = Date.now()
     }
 
     const handlePointerMove = (event) => {
@@ -126,12 +110,10 @@ function ImageSmearCanvas({
       pointer.x = next.x
       pointer.y = next.y
       pointer.active = true
-      pointer.lastActiveTime = Date.now()
     }
 
     const handlePointerLeave = () => {
       pointer.active = false
-      pointer.lastActiveTime = Date.now()
     }
 
     const animate = () => {
@@ -175,34 +157,30 @@ function ImageSmearCanvas({
       pointer.vy = pointer.vy * 0.72 + (pointer.y - pointer.lastY) * 0.28
       const radius = interactionRadius * (canvas.width / canvas.getBoundingClientRect().width)
 
-      renderedAssembly += (assemblyRef.current - renderedAssembly) * 0.12
       let particlesMoving = false
 
       for (const particle of particles) {
-        const targetX = particle.originX + particle.disperseX * (1 - renderedAssembly)
-        const targetY = particle.originY + particle.disperseY * (1 - renderedAssembly)
-
         if (pointer.active) {
           const dx = particle.x - pointer.x
           const dy = particle.y - pointer.y
           const distance = Math.hypot(dx, dy)
           if (distance < radius) {
             const force = 1 - distance / radius
-            particle.vx += pointer.vx * smearStrength * force * 0.055
-            particle.vy += pointer.vy * smearStrength * force * 0.055
-            const push = force * smearStrength * 0.09
+            particle.vx += pointer.vx * smearStrength * force * 0.035
+            particle.vy += pointer.vy * smearStrength * force * 0.035
+            const push = force * smearStrength * 0.045
             particle.vx += (dx / Math.max(distance, 1)) * push
             particle.vy += (dy / Math.max(distance, 1)) * push
           }
         }
 
-        particle.vx += (targetX - particle.x) * returnSpeed
-        particle.vy += (targetY - particle.y) * returnSpeed
+        particle.vx += (particle.originX - particle.x) * returnSpeed
+        particle.vy += (particle.originY - particle.y) * returnSpeed
         particle.vx *= 0.78
         particle.vy *= 0.78
 
         const speed = Math.hypot(particle.vx, particle.vy)
-        const velocityLimit = Math.max(particle.width, particle.height) * 0.72
+        const velocityLimit = Math.max(particle.width, particle.height) * 0.28
         if (speed > velocityLimit) {
           particle.vx = (particle.vx / speed) * velocityLimit
           particle.vy = (particle.vy / speed) * velocityLimit
@@ -213,20 +191,19 @@ function ImageSmearCanvas({
         if (
           Math.abs(particle.vx) > 0.05 ||
           Math.abs(particle.vy) > 0.05 ||
-          Math.abs(targetX - particle.x) > 0.2 ||
-          Math.abs(targetY - particle.y) > 0.2
+          Math.abs(particle.originX - particle.x) > 0.2 ||
+          Math.abs(particle.originY - particle.y) > 0.2
         ) {
           particlesMoving = true
         }
       }
 
-      const shouldShowGridEffect =
-        pointer.active ||
-        Date.now() - pointer.lastActiveTime < 900 ||
-        renderedAssembly < 0.998 ||
-        particlesMoving
+      const shouldShowGridEffect = pointer.active || particlesMoving
+      const targetAlpha = shouldShowGridEffect ? Math.min(0.42, 0.2 + trailLength * 0.32) : 0
+      effectAlpha += (targetAlpha - effectAlpha) * (shouldShowGridEffect ? 0.2 : 0.12)
 
-      if (!shouldShowGridEffect) {
+      if (!shouldShowGridEffect && effectAlpha < 0.01) {
+        effectAlpha = 0
         pointer.lastX = pointer.x
         pointer.lastY = pointer.y
         frameId = requestAnimationFrame(animate)
@@ -234,14 +211,14 @@ function ImageSmearCanvas({
       }
 
       const overlap = 2
-      ctx.globalAlpha = Math.min(0.75, 0.5 + trailLength * 0.3125)
+      ctx.globalAlpha = effectAlpha
       for (const particle of particles) {
         const speed = Math.hypot(particle.vx, particle.vy)
         ctx.save()
         if (speed > 0.65) {
           ctx.translate(particle.x, particle.y)
           ctx.rotate(Math.atan2(particle.vy, particle.vx))
-          const stretch = Math.min(2.1, 1 + speed * 0.035 * smearStrength)
+          const stretch = Math.min(1.18, 1 + speed * 0.008 * smearStrength)
           ctx.drawImage(
             image,
             particle.sourceX,
