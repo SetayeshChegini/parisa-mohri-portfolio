@@ -27,11 +27,11 @@ const projects = [
     aspectRatio: '1491 / 1055',
   },
   {
-    title: 'Glass Index',
+    title: 'Warby Parker',
     number: '04',
-    category: 'Web Design — Art Direction',
-    image: imagePath('glass-index.png'),
-    aspectRatio: '343 / 361',
+    category: 'Campaign Design — Art Direction',
+    image: imagePath('warby-parker.png'),
+    aspectRatio: '1672 / 941',
   },
   {
     title: 'Afterimage',
@@ -50,10 +50,10 @@ function ProjectCard({ project, index }) {
           sourceImage={project.image}
           imageFit="contain"
           gridDensity={18}
-          smearStrength={1}
-          returnSpeed={0.08}
-          trailLength={0.7}
-          interactionRadius={110}
+          smearStrength={0.6}
+          returnSpeed={0.06}
+          trailLength={0.88}
+          interactionRadius={140}
           colorMode="original"
         />
       </div>

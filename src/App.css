@@ -428,7 +428,7 @@ h2 {
   border-radius: 8px;
   background: #050507;
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.24);
-  transition: box-shadow 220ms ease, transform 220ms ease;
+  transition: box-shadow 220ms ease;
 }
 
 .project-image-wrap::after {
@@ -440,8 +440,8 @@ h2 {
 }
 
 .project-card:hover .project-image-wrap {
-  transform: translateY(-3px);
-  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.38), 0 0 46px rgba(189, 210, 255, 0.08);
+  transform: none;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.24);
 }
 
 .project-image-wrap canvas {
