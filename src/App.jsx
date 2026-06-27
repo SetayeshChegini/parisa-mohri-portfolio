@@ -1,26 +1,64 @@
 import heroImg from './assets/hero.png'
+import ImageSmearCanvas from './ImageSmearCanvas'
 import './App.css'
+
+const imagePath = (filename) => `${import.meta.env.BASE_URL}images/${filename}`
 
 const projects = [
   {
-    title: 'Signal studio',
-    meta: 'Brand system / Web direction',
+    title: 'Signal Studio',
+    category: 'Brand Identity',
+    year: '2026',
+    image: imagePath('signal-studio.png'),
     description:
       'A sharp, cinematic identity system with focused layouts, quiet motion, and editorial rhythm.',
   },
   {
-    title: 'Nocturne archive',
-    meta: 'Portfolio / Visual research',
+    title: 'Glitch',
+    category: 'Packaging Design',
+    year: '2026',
+    image: imagePath('glitch-energy.png'),
+    description:
+      'A high-voltage energy drink identity built from electric color, tactile condensation, and digital noise.',
+  },
+  {
+    title: 'Nocturne Archive',
+    category: 'Visual Research',
+    year: '2025',
+    image: imagePath('nocturne-archive.png'),
     description:
       'A dark, minimal gallery for selected work, designed around atmosphere, pacing, and restraint.',
   },
   {
-    title: 'Glass index',
-    meta: 'Interface / Art direction',
+    title: 'Glass Index',
+    category: 'Digital Art Direction',
+    year: '2025',
+    image: imagePath('glass-index.png'),
     description:
       'A structured digital surface with layered navigation, luminous states, and tactile interactions.',
   },
 ]
+
+const projectPositions = ['card-left-high', 'card-right-low', 'card-center-offset', 'card-left-low', 'card-right-high']
+
+function ProjectCard({ project, index }) {
+  return (
+    <article className={`project-card ${projectPositions[index % projectPositions.length]}`}>
+      <div className="project-image">
+        <ImageSmearCanvas sourceImage={project.image} />
+        <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
+      </div>
+      <div className="project-copy">
+        <div className="project-meta">
+          <span>{project.category}</span>
+          <span>{project.year}</span>
+        </div>
+        <h3>{project.title}</h3>
+        <p>{project.description}</p>
+      </div>
+    </article>
+  )
+}
 
 const skills = ['Art direction', 'Visual identity', 'Digital design', 'Interaction', 'Layout systems']
 
@@ -104,16 +142,9 @@ function App() {
           <h2>Quiet interfaces with a cinematic edge.</h2>
         </div>
 
-        <div className="project-list">
+        <div className="projects-layout">
           {projects.map((project, index) => (
-            <article className="project-card halo-card" key={project.title}>
-              <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
-              <div>
-                <p className="project-meta">{project.meta}</p>
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-              </div>
-            </article>
+            <ProjectCard project={project} index={index} key={project.title} />
           ))}
         </div>
       </section>

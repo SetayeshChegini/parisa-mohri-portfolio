@@ -335,16 +335,11 @@ h1 {
 }
 
 .work-section {
-  display: grid;
-  grid-template-columns: 0.7fr 1.3fr;
-  gap: clamp(28px, 5vw, 76px);
   padding: 56px 0 18px;
 }
 
 .section-heading {
-  position: sticky;
-  top: 28px;
-  align-self: start;
+  max-width: 680px;
 }
 
 h2 {
@@ -355,44 +350,95 @@ h2 {
   font-weight: 620;
 }
 
-.project-list {
-  display: grid;
-  gap: 14px;
+.projects-layout {
+  position: relative;
+  display: flow-root;
+  min-height: 2550px;
+  margin-top: 80px;
 }
 
 .project-card {
   position: relative;
-  display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
-  gap: 18px;
-  padding: clamp(22px, 3vw, 34px);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)),
-    rgba(5, 5, 7, 0.46);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(20px);
-  transition:
-    border-color 180ms ease,
-    background 180ms ease,
-    transform 180ms ease,
-    box-shadow 180ms ease;
+  width: min(520px, 44vw);
 }
 
-.project-card:hover {
-  transform: translateY(-3px);
-  border-color: rgba(223, 231, 246, 0.28);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.095), rgba(255, 255, 255, 0.035)),
-    rgba(8, 9, 12, 0.68);
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+.card-left-high {
+  margin-left: 0;
+}
+
+.card-right-low {
+  margin: 200px 0 0 auto;
+}
+
+.card-center-offset {
+  margin: 180px 0 0 26%;
+}
+
+.card-left-low {
+  margin: 190px 0 0 7%;
+}
+
+.card-right-high {
+  margin: -40px 7% 0 auto;
+}
+
+.project-image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  border: 1px solid rgba(236, 241, 255, 0.14);
+  border-radius: 6px;
+  background: #050507;
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.42);
+  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+}
+
+.project-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+.project-card:hover .project-image {
+  transform: translateY(-4px);
+  border-color: rgba(225, 233, 255, 0.34);
+  box-shadow: 0 34px 100px rgba(0, 0, 0, 0.5), 0 0 54px rgba(189, 210, 255, 0.13);
+}
+
+.project-image canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .project-number {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
   color: rgba(235, 238, 245, 0.32);
+  background: rgba(4, 4, 7, 0.58);
+  backdrop-filter: blur(12px);
   font-size: 14px;
   font-weight: 700;
+}
+
+.project-copy {
+  padding: 20px 2px 0;
+}
+
+.project-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 h3 {
@@ -404,7 +450,7 @@ h3 {
 }
 
 .project-card p:last-child {
-  max-width: 560px;
+  max-width: 440px;
   margin: 0;
   color: var(--text);
 }
@@ -470,7 +516,6 @@ h3 {
 
   .hero-section,
   .profile-strip,
-  .work-section,
   .contact-section {
     grid-template-columns: 1fr;
   }
@@ -497,8 +542,23 @@ h3 {
     justify-content: flex-start;
   }
 
-  .section-heading {
-    position: static;
+  .projects-layout {
+    min-height: auto;
+    margin-top: 52px;
+  }
+
+  .project-card,
+  .card-left-high,
+  .card-right-low,
+  .card-center-offset,
+  .card-left-low,
+  .card-right-high {
+    width: min(100%, 600px);
+    margin: 0 0 72px;
+  }
+
+  .project-card:nth-child(even) {
+    margin-left: auto;
   }
 
   .contact-section {
@@ -537,7 +597,9 @@ h3 {
     box-sizing: border-box;
   }
 
-  .project-card {
-    grid-template-columns: 1fr;
+  .project-card,
+  .project-card:nth-child(even) {
+    width: 100%;
+    margin: 0 0 56px;
   }
 }
