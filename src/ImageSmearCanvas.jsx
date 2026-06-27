@@ -11,6 +11,7 @@ const defaults = {
 function ImageSmearCanvas({
   sourceImage,
   className = '',
+  scrollAssembly = 1,
   gridDensity = defaults.gridDensity,
   smearStrength = defaults.smearStrength,
   returnSpeed = defaults.returnSpeed,
@@ -18,6 +19,11 @@ function ImageSmearCanvas({
   interactionRadius = defaults.interactionRadius,
 }) {
   const canvasRef = useRef(null)
+  const assemblyRef = useRef(scrollAssembly)
+
+  useEffect(() => {
+    assemblyRef.current = scrollAssembly
+  }, [scrollAssembly])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -28,7 +34,17 @@ function ImageSmearCanvas({
     let image
     let particles = []
     let isVisible = false
-    const pointer = { x: 0, y: 0, lastX: 0, lastY: 0, vx: 0, vy: 0, active: false }
+    let renderedAssembly = assemblyRef.current
+    const pointer = {
+      x: 0,
+      y: 0,
+      lastX: 0,
+      lastY: 0,
+      vx: 0,
+      vy: 0,
+      active: false,
+      lastActiveTime: 0,
+    }
 
     const buildParticles = () => {
       if (!image) return
@@ -46,8 +62,8 @@ function ImageSmearCanvas({
       const rows = Math.max(12, Math.round(columns * canvas.height / canvas.width))
       const cellWidth = canvas.width / columns
       const cellHeight = canvas.height / rows
-      const sourceCellWidth = image.width / columns
-      const sourceCellHeight = image.height / rows
+      const sourceCellWidth = cellWidth / scale
+      const sourceCellHeight = cellHeight / scale
 
       canvas.dataset.imageX = imageX
       canvas.dataset.imageY = imageY
@@ -59,15 +75,25 @@ function ImageSmearCanvas({
         for (let column = 0; column < columns; column += 1) {
           const x = (column + 0.5) * cellWidth
           const y = (row + 0.5) * cellHeight
+          const sourceX = (column * cellWidth - imageX) / scale
+          const sourceY = (row * cellHeight - imageY) / scale
+          const angle = Math.atan2(y - canvas.height / 2, x - canvas.width / 2)
+          const variation = ((row * 17 + column * 29) % 11) / 10
+          const distance = (24 + variation * 38) * dpr
+          const disperseX = Math.cos(angle + variation * 0.45) * distance
+          const disperseY = Math.sin(angle - variation * 0.35) * distance
+          const assembly = assemblyRef.current
           particles.push({
-            x,
-            y,
+            x: x + disperseX * (1 - assembly),
+            y: y + disperseY * (1 - assembly),
             originX: x,
             originY: y,
+            disperseX,
+            disperseY,
             vx: 0,
             vy: 0,
-            sourceX: column * sourceCellWidth,
-            sourceY: row * sourceCellHeight,
+            sourceX,
+            sourceY,
             sourceWidth: sourceCellWidth,
             sourceHeight: sourceCellHeight,
             width: cellWidth,
@@ -88,6 +114,7 @@ function ImageSmearCanvas({
     const handlePointerEnter = (event) => {
       const next = getPointer(event)
       Object.assign(pointer, next, { lastX: next.x, lastY: next.y, active: true })
+      pointer.lastActiveTime = Date.now()
     }
 
     const handlePointerMove = (event) => {
@@ -95,10 +122,12 @@ function ImageSmearCanvas({
       pointer.x = next.x
       pointer.y = next.y
       pointer.active = true
+      pointer.lastActiveTime = Date.now()
     }
 
     const handlePointerLeave = () => {
       pointer.active = false
+      pointer.lastActiveTime = Date.now()
     }
 
     const animate = () => {
@@ -113,6 +142,7 @@ function ImageSmearCanvas({
       }
 
       ctx.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.globalAlpha = 1
       ctx.drawImage(
         image,
         Number(canvas.dataset.imageX),
@@ -125,8 +155,13 @@ function ImageSmearCanvas({
       pointer.vy = pointer.vy * 0.72 + (pointer.y - pointer.lastY) * 0.28
       const radius = interactionRadius * (canvas.width / canvas.getBoundingClientRect().width)
 
-      ctx.globalAlpha = 0.48 + trailLength * 0.18
+      renderedAssembly += (assemblyRef.current - renderedAssembly) * 0.12
+      let particlesMoving = false
+
       for (const particle of particles) {
+        const targetX = particle.originX + particle.disperseX * (1 - renderedAssembly)
+        const targetY = particle.originY + particle.disperseY * (1 - renderedAssembly)
+
         if (pointer.active) {
           const dx = particle.x - pointer.x
           const dy = particle.y - pointer.y
@@ -141,8 +176,8 @@ function ImageSmearCanvas({
           }
         }
 
-        particle.vx += (particle.originX - particle.x) * returnSpeed
-        particle.vy += (particle.originY - particle.y) * returnSpeed
+        particle.vx += (targetX - particle.x) * returnSpeed
+        particle.vy += (targetY - particle.y) * returnSpeed
         particle.vx *= 0.78
         particle.vy *= 0.78
 
@@ -155,7 +190,33 @@ function ImageSmearCanvas({
 
         particle.x += particle.vx
         particle.y += particle.vy
+        if (
+          Math.abs(particle.vx) > 0.05 ||
+          Math.abs(particle.vy) > 0.05 ||
+          Math.abs(targetX - particle.x) > 0.2 ||
+          Math.abs(targetY - particle.y) > 0.2
+        ) {
+          particlesMoving = true
+        }
+      }
 
+      const shouldShowGridEffect =
+        pointer.active ||
+        Date.now() - pointer.lastActiveTime < 900 ||
+        renderedAssembly < 0.998 ||
+        particlesMoving
+
+      if (!shouldShowGridEffect) {
+        pointer.lastX = pointer.x
+        pointer.lastY = pointer.y
+        frameId = requestAnimationFrame(animate)
+        return
+      }
+
+      const overlap = 2
+      ctx.globalAlpha = Math.min(0.75, 0.5 + trailLength * 0.3125)
+      for (const particle of particles) {
+        const speed = Math.hypot(particle.vx, particle.vy)
         ctx.save()
         if (speed > 0.65) {
           ctx.translate(particle.x, particle.y)
@@ -167,10 +228,10 @@ function ImageSmearCanvas({
             particle.sourceY,
             particle.sourceWidth,
             particle.sourceHeight,
-            -particle.width * stretch / 2 - 1,
-            -particle.height / 2 - 1,
-            particle.width * stretch + 2,
-            particle.height + 2,
+            Math.round(-particle.width * stretch / 2 - overlap / 2),
+            Math.round(-particle.height / 2 - overlap / 2),
+            Math.ceil(particle.width * stretch + overlap),
+            Math.ceil(particle.height + overlap),
           )
         } else {
           ctx.drawImage(
@@ -179,10 +240,10 @@ function ImageSmearCanvas({
             particle.sourceY,
             particle.sourceWidth,
             particle.sourceHeight,
-            particle.x - particle.width / 2 - 1,
-            particle.y - particle.height / 2 - 1,
-            particle.width + 2,
-            particle.height + 2,
+            Math.round(particle.x - particle.width / 2 - overlap / 2),
+            Math.round(particle.y - particle.height / 2 - overlap / 2),
+            Math.ceil(particle.width + overlap),
+            Math.ceil(particle.height + overlap),
           )
         }
         ctx.restore()
