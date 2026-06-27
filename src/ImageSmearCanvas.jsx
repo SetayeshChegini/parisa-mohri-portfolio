@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
 
 const defaults = {
-  gridDensity: 130,
-  smearStrength: 3.5,
-  returnSpeed: 0.1,
-  trailLength: 0.55,
-  interactionRadius: 110,
+  gridDensity: 30,
+  smearStrength: 1.5,
+  returnSpeed: 0.07,
+  trailLength: 0.8,
+  interactionRadius: 120,
 }
 
 function ImageSmearCanvas({
@@ -42,8 +42,8 @@ function ImageSmearCanvas({
       const imageHeight = image.height * scale
       const imageX = (canvas.width - imageWidth) / 2
       const imageY = (canvas.height - imageHeight) / 2
-      const columns = Math.max(24, Math.round(gridDensity * (bounds.width / 720)))
-      const rows = Math.max(18, Math.round(columns * canvas.height / canvas.width))
+      const columns = Math.max(16, Math.round(gridDensity))
+      const rows = Math.max(12, Math.round(columns * canvas.height / canvas.width))
       const cellWidth = canvas.width / columns
       const cellHeight = canvas.height / rows
       const sourceCellWidth = image.width / columns

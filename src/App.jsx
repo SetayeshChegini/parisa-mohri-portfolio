@@ -7,54 +7,62 @@ const imagePath = (filename) => `${import.meta.env.BASE_URL}images/${filename}`
 const projects = [
   {
     title: 'Signal Studio',
-    category: 'Brand Identity',
-    year: '2026',
+    number: '01',
+    category: 'Brand Identity — Art Direction',
     image: imagePath('signal-studio.png'),
-    description:
-      'A sharp, cinematic identity system with focused layouts, quiet motion, and editorial rhythm.',
   },
   {
     title: 'Glitch',
-    category: 'Packaging Design',
-    year: '2026',
+    number: '02',
+    category: 'Packaging Design — Visual System',
     image: imagePath('glitch-energy.png'),
-    description:
-      'A high-voltage energy drink identity built from electric color, tactile condensation, and digital noise.',
   },
   {
     title: 'Nocturne Archive',
-    category: 'Visual Research',
-    year: '2025',
+    number: '03',
+    category: 'Visual Research — Concept',
     image: imagePath('nocturne-archive.png'),
-    description:
-      'A dark, minimal gallery for selected work, designed around atmosphere, pacing, and restraint.',
   },
   {
     title: 'Glass Index',
-    category: 'Digital Art Direction',
-    year: '2025',
+    number: '04',
+    category: 'Web Design — Art Direction',
     image: imagePath('glass-index.png'),
-    description:
-      'A structured digital surface with layered navigation, luminous states, and tactile interactions.',
+  },
+  {
+    title: 'Afterimage',
+    number: '05',
+    category: 'Design System — Creative Direction',
+    image: imagePath('afterimage.png'),
   },
 ]
 
-const projectPositions = ['card-left-high', 'card-right-low', 'card-center-offset', 'card-left-low', 'card-right-high']
-
 function ProjectCard({ project, index }) {
   return (
-    <article className={`project-card ${projectPositions[index % projectPositions.length]}`}>
-      <div className="project-image">
-        <ImageSmearCanvas sourceImage={project.image} />
-        <span className="project-number">{String(index + 1).padStart(2, '0')}</span>
+    <article className={`project-card project-card-${index + 1}`}>
+      <div className="project-image-wrap">
+        <ImageSmearCanvas
+          sourceImage={project.image}
+          scrollAssembly={1}
+          gridDensity={30}
+          smearStrength={1.5}
+          returnSpeed={0.07}
+          trailLength={0.8}
+          interactionRadius={120}
+          colorMode="original"
+        />
       </div>
-      <div className="project-copy">
+      <div className="project-info">
         <div className="project-meta">
+          <span>Project /{project.number}</span>
           <span>{project.category}</span>
-          <span>{project.year}</span>
         </div>
-        <h3>{project.title}</h3>
-        <p>{project.description}</p>
+        <div className="project-title-row">
+          <h3>{project.title}</h3>
+          <span className="project-arrow" aria-hidden="true">
+            →
+          </span>
+        </div>
       </div>
     </article>
   )
