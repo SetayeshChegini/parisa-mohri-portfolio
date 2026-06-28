@@ -1,5 +1,8 @@
 import GridDistortion from './components/GridDistortion'
 import Preloader from './components/Preloader'
+import About from './components/About'
+import Skills from './components/Skills'
+import Footer from './components/Footer'
 import './App.css'
 
 const imagePath = (filename) => `${import.meta.env.BASE_URL}images/${filename}`
@@ -58,7 +61,9 @@ function ProjectCard({ project, index }) {
           <span>{project.category}</span>
         </div>
         <div className="project-title-row">
-          <h3>{project.title}</h3>
+          <h3 className="glitch-hover" data-text={project.title}>
+            {project.title}
+          </h3>
           <span className="project-arrow" aria-hidden="true">
             →
           </span>
@@ -67,8 +72,6 @@ function ProjectCard({ project, index }) {
     </article>
   )
 }
-
-const skills = ['Art direction', 'Visual identity', 'Digital design', 'Interaction', 'Layout systems']
 
 function App() {
   return (
@@ -121,26 +124,21 @@ function App() {
             <a className="glitch-hover" href="#contact" data-text="LinkedIn">
               LinkedIn
             </a>
-            <a className="glitch-hover" href="#contact" data-text="Instagram">
+            <a
+              className="glitch-hover"
+              href="https://www.instagram.com/paris_azhdehfar/"
+              data-text="Instagram"
+              target="_blank"
+              rel="noreferrer"
+            >
               Instagram
             </a>
           </div>
         </div>
       </section>
 
-      <section className="profile-strip" id="profile" aria-label="Design approach">
-        <p>
-          Immersive does not need to be loud. The work here is built with tension, negative
-          space, precise typography, and interactions that feel like light passing through smoke.
-        </p>
-        <div className="skill-cloud" aria-label="Capabilities">
-          {skills.map((skill) => (
-            <span className="skill-pill glitch-hover" data-text={skill} key={skill}>
-              {skill}
-            </span>
-          ))}
-        </div>
-      </section>
+      <About image={imagePath('parisa-about.png')} />
+      <Skills />
 
       <section className="work-section" id="work">
         <div className="section-heading">
@@ -155,53 +153,7 @@ function App() {
         </div>
       </section>
 
-      <footer className="contact-section" id="contact" aria-label="Contact">
-        <div className="contact-main">
-          <div className="contact-message">
-            <h2>Let’s create something great together.</h2>
-            <p>Based in Canada — working worldwide</p>
-          </div>
-          <div className="contact-cta">
-            <a
-              className="email-link"
-              href="mailto:hello@parisamohri.com"
-            >
-              <span aria-hidden="true">→</span>
-              <span className="glitch-hover" data-text="Send me an email">
-                Send me an email
-              </span>
-            </a>
-            <p>Open for selected collaborations</p>
-          </div>
-        </div>
-
-        <div className="footer-bottom">
-          <a
-            className="footer-mark glitch-hover"
-            href="#home"
-            aria-label="Back to top"
-            data-text="PM"
-          >
-            PM
-          </a>
-          <nav className="footer-socials" aria-label="Footer links">
-            <a className="glitch-hover" href="#work" data-text="Work">
-              Work
-            </a>
-            <a className="glitch-hover" href="#profile" data-text="Profile">
-              Profile
-            </a>
-            <a
-              className="glitch-hover"
-              href="mailto:hello@parisamohri.com"
-              data-text="Email"
-            >
-              Email
-            </a>
-          </nav>
-          <p>© 2026 Parisa Mohri</p>
-        </div>
-      </footer>
+      <Footer />
       </main>
     </>
   )
