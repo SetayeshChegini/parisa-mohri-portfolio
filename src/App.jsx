@@ -1,4 +1,3 @@
-import heroImg from './assets/hero.png'
 import ImageSmearCanvas from './ImageSmearCanvas'
 import './App.css'
 
@@ -100,30 +99,26 @@ function App() {
       </nav>
 
       <section className="hero-section" id="home">
-        <div className="hero-copy">
-          <p className="eyebrow">Portfolio / Visual designer</p>
-          <h1>Parisa Mohri</h1>
-          <p className="lead">
-            Minimal digital worlds for brands, portfolios, and visual systems that need mood,
-            clarity, and a little voltage in the dark.
+        <div className="hero-meta" aria-label="Designer details">
+          <span>Independent designer</span>
+          <span>Based in Canada</span>
+          <p>
+            Digital designer crafting identities, interfaces, and visual systems with clarity,
+            atmosphere, and a cinematic edge.
           </p>
-          <div className="hero-actions" aria-label="Portfolio actions">
-            <a className="primary-action halo-link" href="#work">
-              View work
-            </a>
-            <a className="secondary-action halo-link" href="#contact">
-              Start a project
-            </a>
-          </div>
         </div>
 
-        <div className="hero-visual" aria-label="Abstract smoky portfolio mark">
-          <div className="orbital orbital-one"></div>
-          <div className="orbital orbital-two"></div>
-          <img src={heroImg} alt="" />
-          <div className="visual-caption">
-            <span>Selected direction</span>
-            <strong>2026</strong>
+        <h1 className="hero-title">
+          <span>Parisa Mohri</span>
+          <strong>Digital Designer</strong>
+        </h1>
+
+        <div className="hero-baseline">
+          <span>Selected work / 2026</span>
+          <div className="hero-socials" aria-label="Social profiles">
+            <a href="#contact">Behance</a>
+            <a href="#contact">LinkedIn</a>
+            <a href="#contact">Instagram</a>
           </div>
         </div>
       </section>
@@ -155,15 +150,32 @@ function App() {
         </div>
       </section>
 
-      <section className="contact-section" id="contact" aria-label="Contact">
-        <div>
-          <p className="eyebrow">Open for selected work</p>
-          <h2>Let the next piece feel sharper, darker, and more alive.</h2>
+      <footer className="contact-section" id="contact" aria-label="Contact">
+        <div className="contact-main">
+          <div className="contact-message">
+            <h2>Let’s create something great together.</h2>
+            <p>Based in Canada — working worldwide</p>
+          </div>
+          <div className="contact-cta">
+            <a className="email-link" href="mailto:hello@parisamohri.com">
+              <span aria-hidden="true">→</span> Send me an email
+            </a>
+            <p>Open for selected collaborations</p>
+          </div>
         </div>
-        <a className="contact-action halo-link" href="#home">
-          Begin
-        </a>
-      </section>
+
+        <div className="footer-bottom">
+          <a className="footer-mark" href="#home" aria-label="Back to top">
+            PM
+          </a>
+          <nav className="footer-socials" aria-label="Footer links">
+            <a href="#work">Work</a>
+            <a href="#profile">Profile</a>
+            <a href="mailto:hello@parisamohri.com">Email</a>
+          </nav>
+          <p>© 2026 Parisa Mohri</p>
+        </div>
+      </footer>
     </main>
   )
 }
