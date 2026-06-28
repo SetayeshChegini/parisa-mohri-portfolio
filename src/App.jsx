@@ -1,4 +1,4 @@
-import ImageSmearCanvas from './ImageSmearCanvas'
+import GridDistortion from './components/GridDistortion'
 import './App.css'
 
 const imagePath = (filename) => `${import.meta.env.BASE_URL}images/${filename}`
@@ -38,15 +38,17 @@ function ProjectCard({ project, index }) {
   return (
     <article className={`project-card project-card-${index + 1}`}>
       <div className="project-image-wrap" style={{ aspectRatio: project.aspectRatio }}>
-        <ImageSmearCanvas
-          sourceImage={project.image}
-          imageFit="contain"
-          gridDensity={12}
-          smearStrength={1.15}
-          returnSpeed={0.045}
-          trailLength={0.92}
-          interactionRadius={220}
-          colorMode="original"
+        <GridDistortion
+          mediaType="image"
+          image={{ src: project.image, alt: project.title }}
+          grid={16}
+          mouse={0.12}
+          strength={0.15}
+          relaxation={0.9}
+          hoverMultiplier={1.5}
+          background="transparent"
+          dprCap={2}
+          className="project-card-media"
         />
       </div>
       <div className="project-info">
@@ -68,31 +70,20 @@ function ProjectCard({ project, index }) {
 const skills = ['Art direction', 'Visual identity', 'Digital design', 'Interaction', 'Layout systems']
 
 function App() {
-  const handlePointerMove = (event) => {
-    const x = `${Math.round((event.clientX / window.innerWidth) * 100)}%`
-    const y = `${Math.round((event.clientY / window.innerHeight) * 100)}%`
-
-    event.currentTarget.style.setProperty('--pointer-x', x)
-    event.currentTarget.style.setProperty('--pointer-y', y)
-  }
-
   return (
-    <main className="site-shell" onPointerMove={handlePointerMove}>
-      <div className="smoke smoke-a" aria-hidden="true"></div>
-      <div className="smoke smoke-b" aria-hidden="true"></div>
-
+    <main className="site-shell">
       <nav className="topbar" aria-label="Primary navigation">
-        <a className="brand halo-link" href="#home" aria-label="Parisa Mohri home">
+        <a className="brand" href="#home" aria-label="Parisa Mohri home">
           PM
         </a>
         <div className="nav-links">
-          <a className="halo-link" href="#work">
+          <a href="#work">
             Work
           </a>
-          <a className="halo-link" href="#profile">
+          <a href="#profile">
             Profile
           </a>
-          <a className="halo-link" href="#contact">
+          <a href="#contact">
             Contact
           </a>
         </div>
