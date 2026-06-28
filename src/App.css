@@ -1200,15 +1200,18 @@ h2 {
 .contact-section {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 1290px;
-  min-height: 500px;
+  position: relative;
+  left: 50%;
+  width: min(1380px, calc(100vw - 32px));
+  max-width: none;
+  min-height: 410px;
   margin: 12vh auto 0;
-  padding: clamp(60px, 6vw, 82px) clamp(36px, 5vw, 70px) 34px;
+  padding: clamp(44px, 4.5vw, 64px) clamp(36px, 5vw, 70px) 28px;
   border: 1px solid rgba(238, 244, 255, 0.2);
   border-radius: 8px;
   background: var(--site-bg);
   box-shadow: none;
+  transform: translateX(-50%);
 }
 
 .footer-main {
@@ -1321,8 +1324,11 @@ h2 {
   }
 
   .contact-section {
-    min-height: 500px;
+    left: auto;
+    width: 100%;
+    min-height: 440px;
     padding: 54px 36px 30px;
+    transform: none;
   }
 
   .footer-main {
