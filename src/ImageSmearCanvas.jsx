@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
 
 const defaults = {
-  gridDensity: 18,
-  smearStrength: 0.6,
-  returnSpeed: 0.06,
-  trailLength: 0.88,
-  interactionRadius: 140,
+  gridDensity: 12,
+  smearStrength: 1.15,
+  returnSpeed: 0.045,
+  trailLength: 0.92,
+  interactionRadius: 220,
 }
 
 function ImageSmearCanvas({
@@ -81,6 +81,7 @@ function ImageSmearCanvas({
             originY: y,
             vx: 0,
             vy: 0,
+            influence: 0,
             sourceX,
             sourceY,
             sourceWidth: sourceCellWidth,
@@ -160,24 +161,32 @@ function ImageSmearCanvas({
       let particlesMoving = false
 
       for (const particle of particles) {
+        let targetInfluence = 0
+
         if (pointer.active) {
           const dx = particle.x - pointer.x
           const dy = particle.y - pointer.y
           const distance = Math.hypot(dx, dy)
           if (distance < radius) {
             const force = 1 - distance / radius
-            particle.vx += pointer.vx * smearStrength * force * 0.025
-            particle.vy += pointer.vy * smearStrength * force * 0.025
-            const push = force * smearStrength * 0.03
-            particle.vx += (dx / Math.max(distance, 1)) * push
-            particle.vy += (dy / Math.max(distance, 1)) * push
+            const smoothForce = force * force * (3 - 2 * force)
+            targetInfluence = smoothForce
+
+            const repelStrength = smoothForce * smearStrength * 0.14
+            particle.vx += (dx / Math.max(distance, 1)) * repelStrength
+            particle.vy += (dy / Math.max(distance, 1)) * repelStrength
+
+            const dragStrength = smoothForce * smearStrength * 0.035
+            particle.vx += pointer.vx * dragStrength
+            particle.vy += pointer.vy * dragStrength
           }
         }
 
+        particle.influence += (targetInfluence - particle.influence) * 0.16
         particle.vx += (particle.originX - particle.x) * returnSpeed
         particle.vy += (particle.originY - particle.y) * returnSpeed
-        particle.vx *= 0.88
-        particle.vy *= 0.88
+        particle.vx *= 0.92
+        particle.vy *= 0.92
 
         const speed = Math.hypot(particle.vx, particle.vy)
         const velocityLimit = Math.max(particle.width, particle.height) * 0.2
@@ -192,15 +201,18 @@ function ImageSmearCanvas({
           Math.abs(particle.vx) > 0.05 ||
           Math.abs(particle.vy) > 0.05 ||
           Math.abs(particle.originX - particle.x) > 0.2 ||
-          Math.abs(particle.originY - particle.y) > 0.2
+          Math.abs(particle.originY - particle.y) > 0.2 ||
+          particle.influence > 0.01
         ) {
           particlesMoving = true
         }
       }
 
       const shouldShowGridEffect = pointer.active || particlesMoving
-      const targetAlpha = shouldShowGridEffect ? Math.min(0.36, 0.12 + trailLength * 0.26) : 0
-      effectAlpha += (targetAlpha - effectAlpha) * (shouldShowGridEffect ? 0.12 : 0.07)
+      const targetAlpha = shouldShowGridEffect
+        ? Math.min(0.68, 0.24 + trailLength * 0.38)
+        : 0
+      effectAlpha += (targetAlpha - effectAlpha) * 0.08
 
       if (!shouldShowGridEffect && effectAlpha < 0.01) {
         effectAlpha = 0
@@ -211,10 +223,12 @@ function ImageSmearCanvas({
       }
 
       const overlap = 2
-      ctx.globalAlpha = effectAlpha
       for (const particle of particles) {
+        if (particle.influence < 0.008) continue
+
         const speed = Math.hypot(particle.vx, particle.vy)
         ctx.save()
+        ctx.globalAlpha = effectAlpha * Math.min(1, particle.influence * 1.35)
         if (speed > 0.65) {
           ctx.translate(particle.x, particle.y)
           ctx.rotate(Math.atan2(particle.vy, particle.vx))

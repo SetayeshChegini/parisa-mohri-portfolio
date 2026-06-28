@@ -409,17 +409,6 @@ h2 {
   aspect-ratio: 1.35 / 1;
 }
 
-.project-card-5 {
-  grid-column: 1;
-  width: 74%;
-  margin-left: auto;
-  margin-top: 8vh;
-}
-
-.project-card-5 .project-image-wrap {
-  aspect-ratio: 0.95 / 1.1;
-}
-
 .project-image-wrap {
   position: relative;
   overflow: hidden;
@@ -597,8 +586,7 @@ h2 {
   .project-card-1,
   .project-card-2,
   .project-card-3,
-  .project-card-4,
-  .project-card-5 {
+  .project-card-4 {
     grid-column: 1;
     grid-row: auto;
     width: 100%;
@@ -608,8 +596,7 @@ h2 {
   .project-card-1 .project-image-wrap,
   .project-card-2 .project-image-wrap,
   .project-card-3 .project-image-wrap,
-  .project-card-4 .project-image-wrap,
-  .project-card-5 .project-image-wrap {
+  .project-card-4 .project-image-wrap {
     aspect-ratio: 1 / 1;
   }
 
@@ -668,8 +655,7 @@ h2 {
   .project-card-1 .project-image-wrap,
   .project-card-2 .project-image-wrap,
   .project-card-3 .project-image-wrap,
-  .project-card-4 .project-image-wrap,
-  .project-card-5 .project-image-wrap {
+  .project-card-4 .project-image-wrap {
     aspect-ratio: 1 / 1;
   }
 

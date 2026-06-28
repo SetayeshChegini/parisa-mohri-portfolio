@@ -33,13 +33,6 @@ const projects = [
     image: imagePath('warby-parker.png'),
     aspectRatio: '1672 / 941',
   },
-  {
-    title: 'Afterimage',
-    number: '05',
-    category: 'Design System — Creative Direction',
-    image: imagePath('afterimage.png'),
-    aspectRatio: '343 / 361',
-  },
 ]
 
 function ProjectCard({ project, index }) {
@@ -49,11 +42,11 @@ function ProjectCard({ project, index }) {
         <ImageSmearCanvas
           sourceImage={project.image}
           imageFit="contain"
-          gridDensity={18}
-          smearStrength={0.6}
-          returnSpeed={0.06}
-          trailLength={0.88}
-          interactionRadius={140}
+          gridDensity={12}
+          smearStrength={1.15}
+          returnSpeed={0.045}
+          trailLength={0.92}
+          interactionRadius={220}
           colorMode="original"
         />
       </div>
