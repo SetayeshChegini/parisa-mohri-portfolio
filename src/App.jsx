@@ -80,9 +80,17 @@ function App() {
       <main className="site-shell">
       <nav className="topbar" aria-label="Primary navigation">
         <a
-          className="brand glitch-hover"
+          className="nav-name glitch-hover"
           href="#home"
           aria-label="Parisa Mohri home"
+          data-text="— PARISA MOHRI"
+        >
+          — Parisa Mohri
+        </a>
+        <a
+          className="nav-mark glitch-hover"
+          href="#home"
+          aria-label="Back to top"
           data-text="PM"
         >
           PM
@@ -96,6 +104,13 @@ function App() {
           </a>
           <a className="glitch-hover" href="#contact" data-text="Contact">
             Contact
+          </a>
+          <a
+            className="nav-email glitch-hover"
+            href="mailto:Parisa@mohri.org"
+            data-text="Email me"
+          >
+            Email me
           </a>
         </div>
       </nav>
