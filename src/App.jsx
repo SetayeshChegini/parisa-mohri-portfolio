@@ -1,4 +1,5 @@
 import GridDistortion from './components/GridDistortion'
+import Preloader from './components/Preloader'
 import './App.css'
 
 const imagePath = (filename) => `${import.meta.env.BASE_URL}images/${filename}`
@@ -71,19 +72,26 @@ const skills = ['Art direction', 'Visual identity', 'Digital design', 'Interacti
 
 function App() {
   return (
-    <main className="site-shell">
+    <>
+      <Preloader />
+      <main className="site-shell">
       <nav className="topbar" aria-label="Primary navigation">
-        <a className="brand" href="#home" aria-label="Parisa Mohri home">
+        <a
+          className="brand glitch-hover"
+          href="#home"
+          aria-label="Parisa Mohri home"
+          data-text="PM"
+        >
           PM
         </a>
         <div className="nav-links">
-          <a href="#work">
+          <a className="glitch-hover" href="#work" data-text="Work">
             Work
           </a>
-          <a href="#profile">
+          <a className="glitch-hover" href="#profile" data-text="Profile">
             Profile
           </a>
-          <a href="#contact">
+          <a className="glitch-hover" href="#contact" data-text="Contact">
             Contact
           </a>
         </div>
@@ -107,9 +115,15 @@ function App() {
         <div className="hero-baseline">
           <span>Selected work / 2026</span>
           <div className="hero-socials" aria-label="Social profiles">
-            <a href="#contact">Behance</a>
-            <a href="#contact">LinkedIn</a>
-            <a href="#contact">Instagram</a>
+            <a className="glitch-hover" href="#contact" data-text="Behance">
+              Behance
+            </a>
+            <a className="glitch-hover" href="#contact" data-text="LinkedIn">
+              LinkedIn
+            </a>
+            <a className="glitch-hover" href="#contact" data-text="Instagram">
+              Instagram
+            </a>
           </div>
         </div>
       </section>
@@ -121,7 +135,7 @@ function App() {
         </p>
         <div className="skill-cloud" aria-label="Capabilities">
           {skills.map((skill) => (
-            <span className="skill-pill" key={skill}>
+            <span className="skill-pill glitch-hover" data-text={skill} key={skill}>
               {skill}
             </span>
           ))}
@@ -148,26 +162,48 @@ function App() {
             <p>Based in Canada — working worldwide</p>
           </div>
           <div className="contact-cta">
-            <a className="email-link" href="mailto:hello@parisamohri.com">
-              <span aria-hidden="true">→</span> Send me an email
+            <a
+              className="email-link"
+              href="mailto:hello@parisamohri.com"
+            >
+              <span aria-hidden="true">→</span>
+              <span className="glitch-hover" data-text="Send me an email">
+                Send me an email
+              </span>
             </a>
             <p>Open for selected collaborations</p>
           </div>
         </div>
 
         <div className="footer-bottom">
-          <a className="footer-mark" href="#home" aria-label="Back to top">
+          <a
+            className="footer-mark glitch-hover"
+            href="#home"
+            aria-label="Back to top"
+            data-text="PM"
+          >
             PM
           </a>
           <nav className="footer-socials" aria-label="Footer links">
-            <a href="#work">Work</a>
-            <a href="#profile">Profile</a>
-            <a href="mailto:hello@parisamohri.com">Email</a>
+            <a className="glitch-hover" href="#work" data-text="Work">
+              Work
+            </a>
+            <a className="glitch-hover" href="#profile" data-text="Profile">
+              Profile
+            </a>
+            <a
+              className="glitch-hover"
+              href="mailto:hello@parisamohri.com"
+              data-text="Email"
+            >
+              Email
+            </a>
           </nav>
           <p>© 2026 Parisa Mohri</p>
         </div>
       </footer>
-    </main>
+      </main>
+    </>
   )
 }
 
