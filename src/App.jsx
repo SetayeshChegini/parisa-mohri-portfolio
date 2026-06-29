@@ -28,6 +28,7 @@ const projects = [
     category: 'Product Design — Sustainable Beauty',
     image: imagePath('naturecycle.png'),
     aspectRatio: '1491 / 1055',
+    imageFit: 'cover',
   },
   {
     title: 'Warby Parker',
@@ -45,7 +46,7 @@ function ProjectCard({ project, index }) {
         <GridDistortion
           mediaType="image"
           image={{ src: project.image, alt: project.title }}
-          imageFit="contain"
+          imageFit={project.imageFit ?? 'contain'}
           grid={16}
           mouse={0.12}
           strength={0.15}
