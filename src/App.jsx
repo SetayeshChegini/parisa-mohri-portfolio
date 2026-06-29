@@ -45,6 +45,7 @@ function ProjectCard({ project, index }) {
         <GridDistortion
           mediaType="image"
           image={{ src: project.image, alt: project.title }}
+          imageFit="contain"
           grid={16}
           mouse={0.12}
           strength={0.15}

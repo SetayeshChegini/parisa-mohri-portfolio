@@ -32,6 +32,7 @@ export default function GridDistortion({
     alt: 'Image',
   },
   video = '',
+  imageFit = 'cover',
   grid = 16,
   mouse = 0.12,
   strength = 0.15,
@@ -96,7 +97,10 @@ export default function GridDistortion({
 
       const containerAspect = width / height
       const mediaAspect = imageAspectRef.current
-      const scale = Math.max(containerAspect / mediaAspect, 1)
+      const scale =
+        imageFit === 'contain'
+          ? Math.min(containerAspect / mediaAspect, 1)
+          : Math.max(containerAspect / mediaAspect, 1)
 
       if (planeRef.current) {
         planeRef.current.scale.set(mediaAspect * scale, scale, 1)
@@ -320,6 +324,7 @@ export default function GridDistortion({
     mediaType,
     image.src,
     video,
+    imageFit,
     grid,
     mouse,
     strength,
