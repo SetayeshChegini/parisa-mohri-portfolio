@@ -1,7 +1,8 @@
 import PolaroidFlipCard from './PolaroidFlipCard'
 
-const aboutText =
-  'Parisa Mohri is a creative storyteller working across design, motion, voice, and sound. She builds experiences with emotion and intention, turning ideas into visual identities, animated moments, and immersive digital systems.'
+const aboutText = `I’m a creative storyteller working across design, motion, voice, and sound. I create visual identities, animated moments, and digital experiences that feel intentional, emotional, and immersive.
+
+My work is driven by feeling, detail, and the way design can turn simple ideas into memorable experiences.`
 
 function About({ image }) {
   return (
@@ -24,23 +25,6 @@ function About({ image }) {
           shadowStrength={0.28}
           tiltStrength={12}
         />
-      </div>
-
-      <div className="about-copy">
-        <p>{aboutText}</p>
-        <div className="about-contact">
-          <a
-            className="glitch-hover"
-            href="mailto:Parisa@mohri.org"
-            data-text="Email: Parisa@mohri.org"
-          >
-            Email: Parisa@mohri.org
-          </a>
-          <span aria-hidden="true">|</span>
-          <span className="glitch-hover" data-text="Toronto, ON">
-            Toronto, ON
-          </span>
-        </div>
       </div>
     </section>
   )

@@ -41,7 +41,7 @@ const projects = [
 function ProjectCard({ project, index }) {
   return (
     <article className={`project-card project-card-${index + 1}`}>
-      <div className="project-image-wrap" style={{ aspectRatio: project.aspectRatio }}>
+      <div className="project-image-wrap">
         <GridDistortion
           mediaType="image"
           image={{ src: project.image, alt: project.title }}
