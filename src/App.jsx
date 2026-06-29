@@ -19,7 +19,7 @@ const projects = [
     title: 'Glitch',
     number: '02',
     category: 'Packaging Design — Visual System',
-    image: imagePath('glitch-energy.png'),
+    image: imagePath('glitch-horizontal.png'),
     aspectRatio: '1122 / 1402',
   },
   {
