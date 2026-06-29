@@ -1,4 +1,7 @@
-import GridDistortion from './GridDistortion'
+import PolaroidFlipCard from './PolaroidFlipCard'
+
+const aboutText =
+  'Parisa Mohri is a creative storyteller working across design, motion, voice, and sound. She builds experiences with emotion and intention, turning ideas into visual identities, animated moments, and immersive digital systems.'
 
 function About({ image }) {
   return (
@@ -8,26 +11,23 @@ function About({ image }) {
       </p>
 
       <div className="about-image-wrap">
-        <GridDistortion
-          mediaType="image"
-          image={{ src: image, alt: 'Parisa Mohri' }}
-          grid={16}
-          mouse={0.12}
-          strength={0.15}
-          relaxation={0.9}
-          hoverMultiplier={1.5}
-          background="transparent"
-          dprCap={2}
-          className="about-image-media"
+        <PolaroidFlipCard
+          image={image}
+          caption="Parisa Mohri"
+          backNote={aboutText}
+          frameColor="#f2f2f0"
+          captionColor="#151515"
+          noteColor="#151515"
+          framePadding={12}
+          bottomPadding={58}
+          radius={3}
+          shadowStrength={0.28}
+          tiltStrength={12}
         />
       </div>
 
       <div className="about-copy">
-        <p>
-          Parisa Mohri is a creative storyteller working across design, motion, voice, and sound.
-          She builds experiences with emotion and intention, turning ideas into visual identities,
-          animated moments, and immersive digital systems.
-        </p>
+        <p>{aboutText}</p>
         <div className="about-contact">
           <a
             className="glitch-hover"

@@ -1111,9 +1111,9 @@ h2 {
   position: relative;
   width: 100%;
   aspect-ratio: 4 / 5;
-  overflow: hidden;
+  overflow: visible;
   border-radius: 6px;
-  background: var(--site-bg);
+  background: transparent;
 }
 
 .about-image-media,
