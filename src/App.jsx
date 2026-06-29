@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import GridDistortion from './components/GridDistortion'
 import Preloader from './components/Preloader'
 import About from './components/About'
@@ -38,7 +39,7 @@ const projects = [
   },
 ]
 
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, assembled }) {
   return (
     <article className={`project-card project-card-${index + 1}`}>
       <div className="project-image-wrap" style={{ aspectRatio: project.aspectRatio }}>
@@ -52,6 +53,7 @@ function ProjectCard({ project, index }) {
           hoverMultiplier={1.5}
           background="transparent"
           dprCap={2}
+          assemble={assembled}
           className="project-card-media"
         />
       </div>
@@ -74,6 +76,35 @@ function ProjectCard({ project, index }) {
 }
 
 function App() {
+  const workRef = useRef(null)
+  const [projectsAssembled, setProjectsAssembled] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  )
+
+  useEffect(() => {
+    if (projectsAssembled) return undefined
+
+    const workSection = workRef.current
+    if (!workSection) return undefined
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        setProjectsAssembled(true)
+        observer.disconnect()
+      },
+      {
+        threshold: 0.08,
+        rootMargin: '0px 0px -12% 0px',
+      },
+    )
+
+    observer.observe(workSection)
+    return () => observer.disconnect()
+  }, [projectsAssembled])
+
   return (
     <>
       <Preloader />
@@ -155,7 +186,12 @@ function App() {
       <About image={imagePath('parisa-about.png')} />
       <Skills />
 
-      <section className="work-section" id="work">
+      <section
+        className="work-section"
+        id="work"
+        ref={workRef}
+        data-assembled={projectsAssembled}
+      >
         <div className="section-heading">
           <p className="eyebrow">Selected work</p>
           <h2>Quiet interfaces with a cinematic edge.</h2>
@@ -163,7 +199,12 @@ function App() {
 
         <div className="projects-layout">
           {projects.map((project, index) => (
-            <ProjectCard project={project} index={index} key={project.title} />
+            <ProjectCard
+              project={project}
+              index={index}
+              assembled={projectsAssembled}
+              key={project.title}
+            />
           ))}
         </div>
       </section>

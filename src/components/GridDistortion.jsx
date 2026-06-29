@@ -16,12 +16,23 @@ const fragmentShader = `
 uniform sampler2D uDataTexture;
 uniform sampler2D uTexture;
 uniform vec4 resolution;
+uniform float uAssembly;
+uniform float uGrid;
 varying vec2 vUv;
 
 void main() {
   vec2 uv = vUv;
   vec4 offset = texture2D(uDataTexture, vUv);
-  gl_FragColor = texture2D(uTexture, uv - 0.02 * offset.rg);
+  vec4 color = texture2D(uTexture, uv - 0.02 * offset.rg);
+  vec2 cellUv = fract(vUv * uGrid);
+  float gap = (1.0 - uAssembly) * 0.07;
+  float tileMask =
+    step(gap, cellUv.x) *
+    step(gap, cellUv.y) *
+    step(gap, 1.0 - cellUv.x) *
+    step(gap, 1.0 - cellUv.y);
+  color.a *= tileMask;
+  gl_FragColor = color;
 }
 `
 
@@ -39,6 +50,7 @@ export default function GridDistortion({
   hoverMultiplier = 1.5,
   background = '#000000',
   dprCap = 2,
+  assemble = true,
   className = '',
   style,
 }) {
@@ -51,6 +63,11 @@ export default function GridDistortion({
   const uniformsRef = React.useRef(null)
   const imageAspectRef = React.useRef(1)
   const isHoveredRef = React.useRef(false)
+  const assemblyRef = React.useRef(assemble)
+
+  React.useEffect(() => {
+    assemblyRef.current = assemble
+  }, [assemble])
 
   const mouseState = React.useRef({
     x: 0,
@@ -86,6 +103,8 @@ export default function GridDistortion({
       resolution: { value: new THREE.Vector4() },
       uTexture: { value: null },
       uDataTexture: { value: null },
+      uAssembly: { value: assemblyRef.current ? 1 : 0 },
+      uGrid: { value: Math.max(2, Math.floor(grid)) },
     }
     uniformsRef.current = uniforms
 
@@ -184,9 +203,12 @@ export default function GridDistortion({
 
     const size = Math.max(2, Math.floor(grid))
     const data = new Float32Array(4 * size * size)
+    const scatteredData = new Float32Array(4 * size * size)
     for (let i = 0; i < size * size; i++) {
-      data[i * 4 + 0] = (Math.random() - 0.5) * 2
-      data[i * 4 + 1] = (Math.random() - 0.5) * 2
+      scatteredData[i * 4 + 0] = (Math.random() - 0.5) * 12
+      scatteredData[i * 4 + 1] = (Math.random() - 0.5) * 12
+      data[i * 4 + 0] = assemblyRef.current ? 0 : scatteredData[i * 4 + 0]
+      data[i * 4 + 1] = assemblyRef.current ? 0 : scatteredData[i * 4 + 1]
       data[i * 4 + 2] = 0
       data[i * 4 + 3] = 1
     }
@@ -255,14 +277,20 @@ export default function GridDistortion({
         videoTexture.needsUpdate = true
       }
 
-      const dt = dataTexture.image.data
-      const count = size * size
-      for (let i = 0; i < count; i++) {
-        dt[i * 4 + 0] *= relaxation
-        dt[i * 4 + 1] *= relaxation
+      if (assemblyRef.current) {
+        uniforms.uAssembly.value += (1 - uniforms.uAssembly.value) * 0.055
       }
 
-      if (isHoveredRef.current) {
+      const dt = dataTexture.image.data
+      const count = size * size
+      if (assemblyRef.current) {
+        for (let i = 0; i < count; i++) {
+          dt[i * 4 + 0] *= 0.925
+          dt[i * 4 + 1] *= 0.925
+        }
+      }
+
+      if (assemblyRef.current && isHoveredRef.current) {
         const mult = strength * 100 * hoverMultiplier
         const gridMouseX = size * mouseState.current.x
         const gridMouseY = size * mouseState.current.y
