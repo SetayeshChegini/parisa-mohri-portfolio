@@ -1153,20 +1153,20 @@ h2 {
 
 .skills-section {
   display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: clamp(34px, 6vw, 92px);
-  padding: 10vh 0 14vh;
+  grid-template-columns: 120px 1fr;
+  gap: clamp(28px, 4vw, 60px);
+  padding: 7vh 0 9vh;
 }
 
 .skills-list p {
   margin: 0;
-  padding: 24px 0 30px;
+  padding: 18px 0 21px;
   border-top: 1px solid var(--line);
   color: var(--text-strong);
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(42px, 6vw, 86px);
+  font-size: clamp(32px, 4vw, 54px);
   font-weight: 400;
-  line-height: 0.98;
+  line-height: 1.04;
   text-transform: uppercase;
 }
 
@@ -1319,8 +1319,8 @@ h2 {
   }
 
   .skills-section {
-    grid-template-columns: 90px 1fr;
-    gap: 28px;
+    grid-template-columns: 76px 1fr;
+    gap: 24px;
   }
 
   .contact-section {
@@ -1376,9 +1376,9 @@ h2 {
   }
 
   .skills-list p {
-    padding: 20px 0 24px;
-    font-size: 36px;
-    line-height: 1.05;
+    padding: 16px 0 19px;
+    font-size: 30px;
+    line-height: 1.08;
   }
 
   .contact-section {
