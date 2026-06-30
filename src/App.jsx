@@ -3,6 +3,8 @@ import Preloader from './components/Preloader'
 import About from './components/About'
 import Skills from './components/Skills'
 import Footer from './components/Footer'
+import NaturCycleCaseStudy from './pages/NaturCycleCaseStudy'
+import { Link, Route, Routes } from 'react-router-dom'
 import './App.css'
 
 const imagePath = (filename) => `${import.meta.env.BASE_URL}images/${filename}`
@@ -28,6 +30,8 @@ const projects = [
     category: 'Product Design — Sustainable Beauty',
     image: imagePath('naturecycle.png'),
     aspectRatio: '1491 / 1055',
+    path: '/naturcycle',
+    imageFit: 'cover',
   },
   {
     title: 'Warby Parker',
@@ -39,13 +43,13 @@ const projects = [
 ]
 
 function ProjectCard({ project, index }) {
-  return (
-    <article className={`project-card project-card-${index + 1}`}>
+  const content = (
+    <>
       <div className="project-image-wrap">
         <GridDistortion
           mediaType="image"
           image={{ src: project.image, alt: project.title }}
-          imageFit="contain"
+          imageFit={project.imageFit ?? 'contain'}
           grid={16}
           mouse={0.12}
           strength={0.15}
@@ -70,11 +74,25 @@ function ProjectCard({ project, index }) {
           </span>
         </div>
       </div>
-    </article>
+    </>
   )
+
+  if (project.path) {
+    return (
+      <Link
+        className={`project-card project-card-${index + 1}`}
+        to={project.path}
+        aria-label={`View ${project.title} case study`}
+      >
+        {content}
+      </Link>
+    )
+  }
+
+  return <article className={`project-card project-card-${index + 1}`}>{content}</article>
 }
 
-function App() {
+function PortfolioHome() {
   return (
     <>
       <Preloader />
@@ -172,6 +190,15 @@ function App() {
       <Footer />
       </main>
     </>
+  )
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<PortfolioHome />} />
+      <Route path="/naturcycle" element={<NaturCycleCaseStudy />} />
+    </Routes>
   )
 }
 
