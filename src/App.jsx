@@ -4,6 +4,7 @@ import About from './components/About'
 import Skills from './components/Skills'
 import Footer from './components/Footer'
 import NaturCycleCaseStudy from './pages/NaturCycleCaseStudy'
+import MetaGlassesCaseStudy from './pages/MetaGlassesCaseStudy'
 import { Link, Route, Routes } from 'react-router-dom'
 import './App.css'
 
@@ -40,6 +41,16 @@ const projects = [
     image: imagePath('warby-parker.png'),
     aspectRatio: '1672 / 941',
   },
+  {
+    title: 'Meta Glasses',
+    number: '05',
+    category: 'Motion Design / Branding Campaign',
+    description:
+      'A futuristic launch campaign exploring AR vision, immersive branding, and cinematic motion direction.',
+    image: imagePath('metaglasses-card.png'),
+    path: '/metaglasses',
+    imageFit: 'contain',
+  },
 ]
 
 function ProjectCard({ project, index }) {
@@ -65,6 +76,7 @@ function ProjectCard({ project, index }) {
           <span>Project /{project.number}</span>
           <span>{project.category}</span>
         </div>
+        {project.description && <p className="project-description">{project.description}</p>}
         <div className="project-title-row">
           <h3 className="glitch-hover" data-text={project.title}>
             {project.title}
@@ -198,6 +210,7 @@ function App() {
     <Routes>
       <Route path="/" element={<PortfolioHome />} />
       <Route path="/naturcycle" element={<NaturCycleCaseStudy />} />
+      <Route path="/metaglasses" element={<MetaGlassesCaseStudy />} />
     </Routes>
   )
 }

@@ -1636,6 +1636,14 @@ html body *::after {
   flex-direction: column;
 }
 
+.project-description {
+  max-width: 560px;
+  margin: 24px 0 0;
+  color: #92908c;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
 .project-title-row {
   margin-top: auto;
 }
