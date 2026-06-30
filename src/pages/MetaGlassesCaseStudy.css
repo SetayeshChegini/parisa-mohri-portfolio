@@ -894,3 +894,88 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Editorial case-study flow: frames belong to media, not content. */
+.mg-page {
+  --mg-bg: var(--site-bg, #151515);
+  --mg-panel: transparent;
+  --mg-panel-raised: transparent;
+  background: var(--site-bg, #151515);
+}
+
+.mg-facts-grid {
+  gap: clamp(24px, 4vw, 58px);
+  border: 0;
+}
+
+.mg-fact,
+.mg-fact:nth-child(n) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.mg-fact > p {
+  margin-bottom: 24px;
+}
+
+.mg-problem-grid {
+  gap: 8vw;
+}
+
+.mg-problem-card,
+.mg-goal-card {
+  min-height: 0;
+  padding: 28px 0 0;
+  border-top: 2px solid rgba(209, 11, 24, 0.6);
+  background: transparent;
+}
+
+.mg-problem-card h3,
+.mg-goal-card h3 {
+  margin: 42px 0 30px;
+}
+
+.mg-visual-system {
+  width: min(1280px, calc(100% - 8vw));
+  padding-inline: 0;
+  background: var(--site-bg, #151515);
+}
+
+.mg-system-grid {
+  gap: 8vw;
+}
+
+.mg-palette,
+.mg-type-system {
+  min-height: 0;
+  padding: 28px 0 0;
+  border: 0;
+  border-top: 1px solid var(--mg-line);
+  background: transparent;
+}
+
+.mg-palette > p,
+.mg-type-system > p {
+  margin-bottom: 40px;
+}
+
+.mg-type-system strong {
+  margin: 24px 0 36px;
+}
+
+@media (max-width: 760px) {
+  .mg-visual-system {
+    width: min(100% - 36px, 680px);
+    padding-inline: 0;
+  }
+
+  .mg-facts-grid {
+    gap: 38px 24px;
+  }
+
+  .mg-problem-grid,
+  .mg-system-grid {
+    gap: 56px;
+  }
+}

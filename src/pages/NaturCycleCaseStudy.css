@@ -686,3 +686,86 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Keep the case study editorial and continuous; only media receives a frame. */
+.nc-page {
+  --nc-bg: var(--site-bg, #151515);
+  background: var(--site-bg, #151515);
+}
+
+.nc-problem-points {
+  gap: clamp(22px, 4vw, 54px);
+}
+
+.nc-problem-points p {
+  min-height: 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--nc-line);
+  background: transparent;
+}
+
+.nc-goal-grid {
+  gap: 8vw;
+}
+
+.nc-goal-grid article,
+.nc-goal-grid article:last-child {
+  min-height: 0;
+  padding: 28px 0 0;
+  border-top: 3px solid var(--nc-green);
+  background: transparent;
+  color: #f3f1ed;
+}
+
+.nc-goal-grid article:last-child {
+  border-top-color: var(--nc-lilac);
+}
+
+.nc-goal-grid h3 {
+  margin: 42px 0 30px;
+}
+
+.nc-goal-grid article:last-child span,
+.nc-goal-grid article:last-child > p {
+  color: #a7aaa5;
+}
+
+.nc-persona-grid {
+  gap: 8vw;
+}
+
+.nc-persona-grid article {
+  padding: 28px 0 0;
+  border: 0;
+}
+
+.nc-persona-grid article:first-child {
+  border-top: 3px solid var(--nc-lilac);
+}
+
+.nc-persona-grid article:last-child {
+  border-top: 3px solid var(--nc-green);
+}
+
+.nc-final {
+  width: min(1280px, calc(100% - 8vw));
+  padding-inline: 0;
+  background: var(--site-bg, #151515);
+}
+
+.nc-final .nc-section-heading {
+  width: 100%;
+}
+
+@media (max-width: 760px) {
+  .nc-final {
+    width: min(100% - 36px, 680px);
+    padding-inline: 0;
+  }
+
+  .nc-problem-points,
+  .nc-goal-grid,
+  .nc-persona-grid {
+    gap: 42px;
+  }
+}

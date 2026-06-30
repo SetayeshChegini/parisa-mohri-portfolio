@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import './NaturCycleCaseStudy.css'
+import './CaseStudy.css'
 
 const imagePath = (filename) => `${import.meta.env.BASE_URL}images/${filename}`
 const studyAsset = (filename) =>
@@ -61,11 +62,11 @@ const finalScreens = [
 
 function SectionHeading({ index, title, intro }) {
   return (
-    <div className="nc-section-heading">
-      <p>{index}</p>
+    <div className="nc-section-heading case-study-heading">
+      <p className="case-study-index">{index}</p>
       <div>
         <h2>{title}</h2>
-        {intro && <p className="nc-section-intro">{intro}</p>}
+        {intro && <p className="nc-section-intro case-study-intro">{intro}</p>}
       </div>
     </div>
   )
@@ -73,14 +74,14 @@ function SectionHeading({ index, title, intro }) {
 
 function NaturCycleCaseStudy() {
   return (
-    <main className="nc-page">
-      <nav className="nc-nav" aria-label="Case study navigation">
+    <main className="nc-page case-study-page">
+      <nav className="nc-nav case-study-nav" aria-label="Case study navigation">
         <Link to="/">← Back to projects</Link>
         <span>Parisa Mohri / UX case study</span>
       </nav>
 
-      <header className="nc-hero">
-        <div className="nc-hero-copy">
+      <header className="nc-hero case-study-hero">
+        <div className="nc-hero-copy case-study-hero-copy">
           <p className="nc-eyebrow">Sustainable Beauty Mobile App</p>
           <h1>NaturCycle</h1>
           <p className="nc-summary">
@@ -89,7 +90,7 @@ function NaturCycleCaseStudy() {
           </p>
         </div>
 
-        <figure className="nc-hero-media">
+        <figure className="nc-hero-media case-study-hero-media">
           <img src={imagePath('naturecycle.png')} alt="NaturCycle mobile app mockup" />
         </figure>
 
@@ -109,7 +110,7 @@ function NaturCycleCaseStudy() {
         </dl>
       </header>
 
-      <section className="nc-section nc-overview">
+      <section className="nc-section nc-overview case-study-section">
         <SectionHeading
           index="01 / Overview"
           title="Sustainable choices without the extra work."
@@ -129,7 +130,7 @@ function NaturCycleCaseStudy() {
         </div>
       </section>
 
-      <section className="nc-section nc-problem">
+      <section className="nc-section nc-problem case-study-section">
         <p className="nc-index">02 / Problem</p>
         <blockquote>
           “How might we make sustainable beauty easier, clearer, and more engaging through a
@@ -143,7 +144,7 @@ function NaturCycleCaseStudy() {
         </div>
       </section>
 
-      <section className="nc-section">
+      <section className="nc-section case-study-section">
         <SectionHeading index="03 / Goals" title="Align customer value with responsible growth." />
         <div className="nc-goal-grid">
           <article>
@@ -165,7 +166,7 @@ function NaturCycleCaseStudy() {
         </div>
       </section>
 
-      <section className="nc-section">
+      <section className="nc-section case-study-section">
         <SectionHeading
           index="04 / Research"
           title="The opportunity was not another beauty shop."
@@ -190,7 +191,7 @@ function NaturCycleCaseStudy() {
         </div>
       </section>
 
-      <section className="nc-section">
+      <section className="nc-section case-study-section">
         <SectionHeading
           index="05 / Personas"
           title="Different routines, shared values."
@@ -220,7 +221,7 @@ function NaturCycleCaseStudy() {
         </div>
       </section>
 
-      <section className="nc-section">
+      <section className="nc-section case-study-section">
         <SectionHeading
           index="06 / User flow"
           title="A clear path from discovery to delivery."
@@ -236,7 +237,7 @@ function NaturCycleCaseStudy() {
         </div>
       </section>
 
-      <section className="nc-section">
+      <section className="nc-section case-study-section">
         <SectionHeading
           index="07 / Wireframes"
           title="Explore quickly, test early, refine with purpose."
@@ -256,7 +257,7 @@ function NaturCycleCaseStudy() {
         </div>
       </section>
 
-      <section className="nc-section nc-final">
+      <section className="nc-section nc-final case-study-section">
         <SectionHeading
           index="08 / Final screens"
           title="A calm interface for informed beauty choices."
@@ -278,7 +279,7 @@ function NaturCycleCaseStudy() {
         </div>
       </section>
 
-      <section className="nc-section nc-reflection">
+      <section className="nc-section nc-reflection case-study-section">
         <SectionHeading index="09 / Reflection" title="Sustainability works best when it feels actionable." />
         <div className="nc-reflection-copy">
           <p>
@@ -294,7 +295,7 @@ function NaturCycleCaseStudy() {
         </div>
       </section>
 
-      <section className="nc-cta">
+      <section className="nc-cta case-study-cta">
         <p>Explore the interaction or return to the portfolio.</p>
         <div>
           <a href={prototypeUrl} target="_blank" rel="noreferrer">View prototype ↗</a>
@@ -302,7 +303,7 @@ function NaturCycleCaseStudy() {
         </div>
       </section>
 
-      <footer className="nc-footer">
+      <footer className="nc-footer case-study-footer">
         <span>NaturCycle / UX case study</span>
         <span>© 2026 Parisa Mohri</span>
       </footer>

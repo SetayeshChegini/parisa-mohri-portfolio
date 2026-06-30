@@ -2,6 +2,7 @@ import { useLayoutEffect } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import './MetaGlassesCaseStudy.css'
+import './CaseStudy.css'
 
 const imagePath = (filename) => `${import.meta.env.BASE_URL}images/${filename}`
 const studyAsset = (filename) => imagePath(`metaglasses-case-study/${filename}`)
@@ -86,11 +87,11 @@ function Reveal({ children, className = '', delay = 0 }) {
 
 function SectionHeading({ index, title, intro }) {
   return (
-    <Reveal className="mg-section-heading">
-      <p>{index}</p>
+    <Reveal className="mg-section-heading case-study-heading">
+      <p className="case-study-index">{index}</p>
       <div>
         <h2>{title}</h2>
-        {intro && <p className="mg-section-intro">{intro}</p>}
+        {intro && <p className="mg-section-intro case-study-intro">{intro}</p>}
       </div>
     </Reveal>
   )
@@ -115,15 +116,15 @@ function MetaGlassesCaseStudy() {
   }, [])
 
   return (
-    <main className="mg-page">
-      <nav className="mg-nav" aria-label="Meta Glasses case study navigation">
+    <main className="mg-page case-study-page">
+      <nav className="mg-nav case-study-nav" aria-label="Meta Glasses case study navigation">
         <Link to="/">&larr; Back to projects</Link>
         <span>Parisa Mohri / Motion case study</span>
       </nav>
 
-      <header className="mg-hero">
+      <header className="mg-hero case-study-hero">
         <motion.div
-          className="mg-hero-copy"
+          className="mg-hero-copy case-study-hero-copy"
           initial={reduceMotion ? false : { opacity: 0, y: 24, filter: 'blur(12px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
@@ -137,7 +138,7 @@ function MetaGlassesCaseStudy() {
         </motion.div>
 
         <motion.figure
-          className="mg-hero-film"
+          className="mg-hero-film case-study-hero-media"
           initial={reduceMotion ? false : { opacity: 0, scale: 1.03 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
@@ -158,7 +159,7 @@ function MetaGlassesCaseStudy() {
         </motion.figure>
       </header>
 
-      <section className="mg-section mg-overview">
+      <section className="mg-section mg-overview case-study-section">
         <SectionHeading
           index="01 / Project overview"
           title="A launch story for technology that disappears into life."
@@ -175,7 +176,7 @@ function MetaGlassesCaseStudy() {
         </div>
       </section>
 
-      <section className="mg-section">
+      <section className="mg-section case-study-section">
         <SectionHeading
           index="02 / Brand direction"
           title="The future should feel personal, not distant."
@@ -200,7 +201,7 @@ function MetaGlassesCaseStudy() {
         </div>
       </section>
 
-      <section className="mg-section mg-event">
+      <section className="mg-section mg-event case-study-section">
         <SectionHeading
           index="03 / Event concept"
           title="See the Future."
@@ -232,7 +233,7 @@ function MetaGlassesCaseStudy() {
         </div>
       </section>
 
-      <section className="mg-section">
+      <section className="mg-section case-study-section">
         <SectionHeading index="04 / Problem and goal" title="Close the gap between possibility and desire." />
         <div className="mg-problem-grid">
           <Reveal className="mg-problem-card">
@@ -254,7 +255,7 @@ function MetaGlassesCaseStudy() {
         </div>
       </section>
 
-      <section className="mg-section mg-visual-system">
+      <section className="mg-section mg-visual-system case-study-section">
         <SectionHeading
           index="05 / Visual design system"
           title="Dark space, precise light, controlled energy."
@@ -298,7 +299,7 @@ function MetaGlassesCaseStudy() {
         </div>
       </section>
 
-      <section className="mg-section mg-motion-system">
+      <section className="mg-section mg-motion-system case-study-section">
         <div className="mg-ripple-field" aria-hidden="true">
           <i />
           <i />
@@ -325,7 +326,7 @@ function MetaGlassesCaseStudy() {
         </div>
       </section>
 
-      <section className="mg-section mg-outcome">
+      <section className="mg-section mg-outcome case-study-section">
         <SectionHeading
           index="07 / Final outcome"
           title="A launch world with one clear promise: see more, carry less."
@@ -355,7 +356,7 @@ function MetaGlassesCaseStudy() {
         </div>
       </section>
 
-      <section className="mg-section mg-reflection">
+      <section className="mg-section mg-reflection case-study-section">
         <SectionHeading index="08 / Reflection" title="Motion gave the product a reason to feel real." />
         <div className="mg-reflection-copy">
           <p>
@@ -370,12 +371,12 @@ function MetaGlassesCaseStudy() {
         </div>
       </section>
 
-      <section className="mg-cta">
+      <section className="mg-cta case-study-cta">
         <p>Return to the selected work.</p>
         <Link to="/">Back to projects</Link>
       </section>
 
-      <footer className="mg-footer">
+      <footer className="mg-footer case-study-footer">
         <span>Meta Glasses / Motion case study</span>
         <span>&copy; 2026 Parisa Mohri</span>
       </footer>
