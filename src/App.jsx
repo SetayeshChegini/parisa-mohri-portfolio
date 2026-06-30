@@ -5,6 +5,7 @@ import Skills from './components/Skills'
 import Footer from './components/Footer'
 import NaturCycleCaseStudy from './pages/NaturCycleCaseStudy'
 import MetaGlassesCaseStudy from './pages/MetaGlassesCaseStudy'
+import GlitchCaseStudy from './pages/GlitchCaseStudy'
 import { Link, Route, Routes } from 'react-router-dom'
 import './App.css'
 
@@ -24,6 +25,7 @@ const projects = [
     category: 'Packaging Design — Visual System',
     image: imagePath('glitch-horizontal.png'),
     aspectRatio: '1122 / 1402',
+    path: '/glitch',
   },
   {
     title: 'Naturecycle',
@@ -209,6 +211,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<PortfolioHome />} />
+      <Route path="/glitch" element={<GlitchCaseStudy />} />
       <Route path="/naturcycle" element={<NaturCycleCaseStudy />} />
       <Route path="/metaglasses" element={<MetaGlassesCaseStudy />} />
     </Routes>
