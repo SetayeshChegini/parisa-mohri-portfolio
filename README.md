@@ -1,16 +1,31 @@
-# React + Vite
+# Parisa Mohri Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React and Vite portfolio prepared for deployment from GitHub to Vercel.
 
-Currently, two official plugins are available:
+## Local development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+## Production build
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run build
+```
 
-## Expanding the ESLint configuration
+Vite writes the production site to `dist`. The root `vercel.json` rewrites
+application routes to `index.html`, so direct visits to `/naturcycle` and
+`/metaglasses` work correctly.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Vercel
+
+1. Import the `SetayeshChegini/parisa-mohri-portfolio` GitHub repository.
+2. Keep the detected framework preset as Vite.
+3. Use `npm run build` as the build command and `dist` as the output directory.
+4. Add `parisamohri.com` and `www.parisamohri.com` to the Vercel project.
+
+Once the GitHub repository is connected, Vercel creates a deployment for each
+push and a production deployment for changes pushed to the configured
+production branch.

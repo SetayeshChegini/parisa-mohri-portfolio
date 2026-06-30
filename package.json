@@ -1,11 +1,11 @@
 {
-  "name": "friend-website",
+  "name": "parisa-mohri-portfolio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/create-404.cjs",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
