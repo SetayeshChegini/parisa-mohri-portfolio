@@ -23,75 +23,158 @@
   color: var(--warby-blue);
 }
 
-.warby-hero {
+.warby-cinematic-hero {
   position: relative;
-  padding-top: clamp(72px, 10vh, 120px);
+  display: flex;
+  min-height: 650px;
+  height: calc(100svh - 82px);
+  align-items: center;
+  overflow: hidden;
+  background: var(--site-bg, #151515);
 }
 
-.warby-hero-copy {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.4fr);
-  gap: 28px 8vw;
-  align-items: end;
-  margin-bottom: clamp(52px, 7vh, 86px);
+.warby-cinematic-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.warby-cinematic-bg img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center right;
+  animation: warby-cinematic-drift 30s ease-in-out 1.8s infinite alternate both;
+}
+
+.warby-cinematic-bg > i {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 38%,
+    rgba(46, 168, 224, 0.11) 50%,
+    transparent 62%
+  );
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-100%);
+  animation: warby-cinematic-streak 1.6s ease-out 0.4s both;
+}
+
+.warby-cinematic-scrim,
+.warby-cinematic-vignette,
+.warby-cinematic-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.warby-cinematic-scrim {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--site-bg, #151515) 96%, transparent) 0%,
+    color-mix(in srgb, var(--site-bg, #151515) 78%, transparent) 34%,
+    color-mix(in srgb, var(--site-bg, #151515) 28%, transparent) 62%,
+    transparent 82%
+  );
+}
+
+.warby-cinematic-vignette {
+  background: radial-gradient(ellipse at center, transparent 38%, rgba(0, 0, 0, 0.58) 100%);
+}
+
+.warby-cinematic-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.035;
+}
+
+.warby-cinematic-content {
+  position: relative;
+  z-index: 2;
+  width: min(1280px, calc(100% - 8vw));
+  margin-inline: auto;
 }
 
 .warby-eyebrow {
-  grid-column: 1 / -1;
-  margin: 0;
+  margin: 0 0 18px;
   color: var(--warby-blue);
   font-size: 12px;
   text-transform: uppercase;
 }
 
-.warby-hero h1 {
+.warby-eyebrow::before {
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  margin-right: 12px;
+  background: var(--warby-blue);
+  content: '';
+  vertical-align: middle;
+}
+
+.warby-cinematic-content h1 {
+  max-width: 680px;
   margin: 0;
-  font-size: clamp(70px, 10.5vw, 158px);
-  font-weight: 400;
-  line-height: 0.82;
+  color: #f4f4f2;
+  font-size: clamp(58px, 7.5vw, 112px);
+  font-weight: 700;
+  line-height: 0.9;
   letter-spacing: 0;
 }
 
-.warby-hero h1 span {
-  display: block;
+.warby-cinematic-content h1 em {
   color: var(--warby-blue);
-  font-size: 0.52em;
   font-style: italic;
-  line-height: 1.1;
 }
 
-.warby-hero-summary {
-  max-width: 470px;
-  margin: 0 0 10px;
-  color: #c7c4bf;
-  font-size: clamp(20px, 2.1vw, 29px);
-  line-height: 1.4;
+.warby-cinematic-desc {
+  max-width: 400px;
+  margin: 28px 0 0;
+  color: #b8b8b4;
+  font-size: 17px;
+  line-height: 1.7;
 }
 
-.warby-hero-line,
 .warby-section-heading i,
-.warby-final-line {
+.warby-final-line,
+.warby-cinematic-rule {
   display: block;
   height: 2px;
   background: var(--warby-blue);
   transform-origin: left;
 }
 
-.warby-hero-line {
-  grid-column: 1 / -1;
-  width: min(220px, 34vw);
-  margin-top: 12px;
+.warby-cinematic-rule {
+  width: 120px;
+  margin-top: 32px;
 }
 
-.warby-hero-media {
-  border: 1px solid rgba(17, 168, 223, 0.36);
-  background: #f5f4f1;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
+@keyframes warby-cinematic-drift {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.08) translate(-1%, 1%);
+  }
 }
 
-.warby-hero-media img {
-  width: 100%;
-  height: auto;
+@keyframes warby-cinematic-streak {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
 }
 
 .warby-section-heading .case-study-index {
@@ -797,7 +880,6 @@
 }
 
 @media (max-width: 760px) {
-  .warby-hero-copy,
   .warby-overview,
   .warby-lens-split,
   .warby-goal-split,
@@ -807,12 +889,34 @@
     grid-template-columns: 1fr;
   }
 
-  .warby-hero h1 {
-    font-size: clamp(62px, 21vw, 104px);
+  .warby-cinematic-hero {
+    min-height: 620px;
   }
 
-  .warby-hero-summary {
-    max-width: 560px;
+  .warby-cinematic-bg img {
+    object-position: 68% center;
+  }
+
+  .warby-cinematic-scrim {
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--site-bg, #151515) 97%, transparent) 0%,
+      color-mix(in srgb, var(--site-bg, #151515) 82%, transparent) 55%,
+      color-mix(in srgb, var(--site-bg, #151515) 36%, transparent) 100%
+    );
+  }
+
+  .warby-cinematic-content {
+    width: min(100% - 36px, 680px);
+  }
+
+  .warby-cinematic-content h1 {
+    font-size: clamp(56px, 18vw, 82px);
+  }
+
+  .warby-cinematic-desc {
+    max-width: 320px;
+    font-size: 16px;
   }
 
   .warby-persona-tabs,

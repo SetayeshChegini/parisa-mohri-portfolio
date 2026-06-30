@@ -1,10 +1,8 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import {
   AnimatePresence,
   motion,
   useReducedMotion,
-  useScroll,
-  useTransform,
 } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import './CaseStudy.css'
@@ -401,12 +399,6 @@ function PersonaExplorer() {
 
 function WarbyParkerCaseStudy() {
   const reduceMotion = useReducedMotion()
-  const heroRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  })
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 42])
 
   useLayoutEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
@@ -424,54 +416,65 @@ function WarbyParkerCaseStudy() {
         <span>Parisa Mohri / Campaign case study</span>
       </nav>
 
-      <header className="warby-hero case-study-hero" ref={heroRef}>
-        <div className="warby-hero-copy">
+      <header className="warby-cinematic-hero">
+        <motion.div
+          className="warby-cinematic-bg"
+          initial={
+            reduceMotion
+              ? false
+              : { opacity: 0.72, scale: 1.15, filter: 'blur(28px) brightness(0.65)' }
+          }
+          animate={{ opacity: 1, scale: 1, filter: 'blur(0px) brightness(0.65)' }}
+          transition={{ duration: 1.8, ease: [0.2, 0.7, 0.2, 1] }}
+        >
+          <img
+            src={assetPath('cinematic-hero.webp')}
+            alt="Black eyeglasses illuminated by a cinematic cyan edge light"
+          />
+          <i aria-hidden="true" />
+        </motion.div>
+        <div className="warby-cinematic-scrim" aria-hidden="true" />
+        <div className="warby-cinematic-vignette" aria-hidden="true" />
+        <div className="warby-cinematic-grain" aria-hidden="true" />
+
+        <div className="warby-cinematic-content">
           <motion.p
             className="warby-eyebrow"
-            initial={reduceMotion ? false : { opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.22 }}
+            initial={reduceMotion ? false : { opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 2.15 }}
           >
             Campaign design / Brand strategy
           </motion.p>
           <motion.h1
-            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.72, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
+            initial={
+              reduceMotion ? false : { opacity: 0, scale: 1.03, filter: 'blur(14px)' }
+            }
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            transition={{ duration: 1.6, delay: 0.2, ease: [0.2, 0.7, 0.2, 1] }}
           >
-            Warby Parker
-            <span>The Pitch</span>
+            Warby
+            <br />
+            Parker
+            <br />
+            <em>The Pitch</em>
           </motion.h1>
           <motion.p
-            className="warby-hero-summary"
-            initial={reduceMotion ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
+            className="warby-cinematic-desc"
+            initial={reduceMotion ? false : { opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 2.45 }}
           >
             A pitch-style brand and campaign concept built around bold eyewear visuals.
           </motion.p>
           <motion.i
-            className="warby-hero-line"
+            className="warby-cinematic-rule"
             aria-hidden="true"
             initial={reduceMotion ? false : { scaleX: 0 }}
             animate={{ scaleX: 1 }}
-            transition={{ duration: 0.8, delay: 0.68, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.8, delay: 2.85, ease: [0.22, 1, 0.36, 1] }}
           />
         </div>
-
-        <motion.figure
-          className="warby-hero-media case-study-hero-media"
-          style={reduceMotion ? undefined : { y: heroY }}
-          initial={
-            reduceMotion
-              ? false
-              : { opacity: 0, scale: 1.05, filter: 'blur(18px)' }
-          }
-          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <img src={assetPath('pitch-cover.webp')} alt="The Pitch cover with black glasses and blue Warby Parker lettering" />
-        </motion.figure>
       </header>
 
       <section className="warby-section case-study-section">
