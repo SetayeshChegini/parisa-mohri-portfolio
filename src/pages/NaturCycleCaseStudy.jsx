@@ -1,17 +1,73 @@
 import { Link } from 'react-router-dom'
 import './NaturCycleCaseStudy.css'
 
-const asset = (filename) =>
-  `${import.meta.env.BASE_URL}images/naturcycle-case-study/${filename}`
+const imagePath = (filename) => `${import.meta.env.BASE_URL}images/${filename}`
+const studyAsset = (filename) =>
+  imagePath(`naturcycle-case-study/${filename}`)
 
 const prototypeUrl =
   'https://www.figma.com/proto/FXbIEnnFnmz5SqeC9OPvQY/Skin-care-app-(Community)?page-id=2%3A534'
 
-function StudyImage({ file, alt, className = '' }) {
+const flowSteps = [
+  'Splash',
+  'Login / Signup',
+  'Home',
+  'Products',
+  'Product details',
+  'Sustainability Hub',
+  'Community',
+  'Cart',
+  'Checkout',
+  'Order tracking',
+]
+
+const process = [
+  {
+    title: 'Speed sketches',
+    image: 'sketches.webp',
+    text: 'Eight rapid layouts tested hierarchy before any interface detail was added.',
+    change: 'Broad exploration reduced attachment to the first idea.',
+  },
+  {
+    title: 'A/B testing',
+    image: 'ab-testing.webp',
+    text: 'Two directions were compared for clarity, content depth, and navigation.',
+    change: 'Feedback led to stronger search, menu, and page structure.',
+  },
+  {
+    title: 'Refined wireframes',
+    image: 'wireframes.webp',
+    text: 'The selected structure was translated into the core shopping and community flows.',
+    change: 'Repeated patterns made the experience easier to learn.',
+  },
+  {
+    title: 'Mid-fidelity',
+    image: 'midfi-one.webp',
+    text: 'Screen relationships, content density, and task order were validated before polish.',
+    change: 'The system became simpler, calmer, and more consistent.',
+  },
+]
+
+const finalScreens = [
+  ['login.webp', 'Login'],
+  ['signup.webp', 'Sign up'],
+  ['home.webp', 'Home'],
+  ['products.webp', 'Products'],
+  ['details.webp', 'Product details'],
+  ['checkout.webp', 'Checkout'],
+  ['sustainability.webp', 'Sustainability'],
+  ['account.webp', 'My account'],
+]
+
+function SectionHeading({ index, title, intro }) {
   return (
-    <figure className={`nc-visual ${className}`}>
-      <img src={asset(file)} alt={alt} loading="lazy" />
-    </figure>
+    <div className="nc-section-heading">
+      <p>{index}</p>
+      <div>
+        <h2>{title}</h2>
+        {intro && <p className="nc-section-intro">{intro}</p>}
+      </div>
+    </div>
   )
 }
 
@@ -19,238 +75,235 @@ function NaturCycleCaseStudy() {
   return (
     <main className="nc-page">
       <nav className="nc-nav" aria-label="Case study navigation">
-        <Link to="/" className="nc-back">
-          ← Back to work
-        </Link>
-        <span>Parisa Mohri / Case study 03</span>
+        <Link to="/">← Back to projects</Link>
+        <span>Parisa Mohri / UX case study</span>
       </nav>
 
       <header className="nc-hero">
         <div className="nc-hero-copy">
-          <p className="nc-kicker">Sustainable beauty mobile app / 2026</p>
+          <p className="nc-eyebrow">Sustainable Beauty Mobile App</p>
           <h1>NaturCycle</h1>
-          <p className="nc-intro">
-            A mobile app concept that helps people make eco-conscious beauty choices through
-            product transparency, sustainability education, recycling programs, community,
-            skin analysis, and sample ordering.
+          <p className="nc-summary">
+            A mobile experience that makes sustainable beauty choices clearer through product
+            transparency, skin analysis, recycling, education, and community.
           </p>
         </div>
-        <StudyImage file="cover.webp" alt="NaturCycle brand and sustainable product system" />
-        <div className="nc-facts">
+
+        <figure className="nc-hero-media">
+          <img src={imagePath('naturecycle.png')} alt="NaturCycle mobile app mockup" />
+        </figure>
+
+        <dl className="nc-meta">
           <div>
-            <span>Role</span>
-            <p>UX/UI Designer<br />UX/UI Researcher</p>
+            <dt>Role</dt>
+            <dd>UX/UI Designer<br />UX/UI Researcher</dd>
           </div>
           <div>
-            <span>Methods</span>
-            <p>User interviews<br />Wireframing<br />Usability testing<br />Prototyping</p>
+            <dt>Tools</dt>
+            <dd>Figma<br />Research<br />Wireframing<br />Prototyping</dd>
           </div>
           <div>
-            <span>Focus</span>
-            <p>Sustainable commerce<br />Community<br />Product transparency</p>
+            <dt>Methods</dt>
+            <dd>User interviews<br />Comparative research<br />A/B testing<br />Usability thinking</dd>
           </div>
-        </div>
+        </dl>
       </header>
 
       <section className="nc-section nc-overview">
-        <p className="nc-label">01 / Overview</p>
-        <div className="nc-section-copy">
-          <h2>Beauty, convenience, and environmental responsibility in one system.</h2>
+        <SectionHeading
+          index="01 / Overview"
+          title="Sustainable choices without the extra work."
+          intro="NaturCycle brings shopping, education, recycling, and community into one calm mobile experience."
+        />
+        <div className="nc-overview-grid">
           <p>
-            NaturCycle combines sustainable beauty with everyday convenience. The app gives
-            users practical ways to learn, shop, recycle, and participate in a community without
-            turning sustainability into extra work.
-          </p>
-        </div>
-        <ul className="nc-feature-list">
-          <li>Sustainability Hub</li>
-          <li>DIY tips from users</li>
-          <li>Sample ordering</li>
-          <li>Skin analysis</li>
-          <li>Recycling programs</li>
-          <li>Product transparency</li>
-          <li>Community features</li>
-        </ul>
-      </section>
-
-      <section className="nc-section nc-problem">
-        <p className="nc-label">02 / Problem</p>
-        <blockquote>
-          “How might we adopt sustainable practices in the cosmetic industry through a mobile
-          app?”
-        </blockquote>
-        <div className="nc-columns">
-          <p>
-            Sustainable beauty information is often fragmented, difficult to compare, and
-            disconnected from the moment a person chooses a product.
+            Users can understand what a product contains, see its environmental impact, receive
+            personalized skin guidance, and discover practical ways to recycle or reduce waste.
           </p>
           <ul>
-            <li>Make sustainability easier to understand</li>
-            <li>Surface transparent eco-friendly products</li>
-            <li>Create accessible recycling programs</li>
-            <li>Raise awareness through useful education</li>
-            <li>Build an active, credible community</li>
+            <li>Transparent product information</li>
+            <li>Personalized skin analysis</li>
+            <li>Recycling programs and impact reports</li>
+            <li>Education and community knowledge</li>
           </ul>
         </div>
       </section>
 
-      <section className="nc-section nc-goals">
-        <p className="nc-label">03 / Goals</p>
+      <section className="nc-section nc-problem">
+        <p className="nc-index">02 / Problem</p>
+        <blockquote>
+          “How might we make sustainable beauty easier, clearer, and more engaging through a
+          mobile app?”
+        </blockquote>
+        <div className="nc-problem-points">
+          <p>Information is fragmented and difficult to compare.</p>
+          <p>Eco-friendly claims often lack useful product detail.</p>
+          <p>Recycling programs feel separate from shopping.</p>
+          <p>Users need guidance without information overload.</p>
+        </div>
+      </section>
+
+      <section className="nc-section">
+        <SectionHeading index="03 / Goals" title="Align customer value with responsible growth." />
         <div className="nc-goal-grid">
           <article>
-            <span>Client goal</span>
+            <p>Business / Client goal</p>
             <h3>Bridge sustainable beauty and customer convenience.</h3>
+            <span>
+              Build trust through transparency while supporting discovery, loyalty, and responsible
+              purchasing.
+            </span>
           </article>
           <article>
-            <span>Design goal</span>
-            <h3>Create a stylish, minimal app that makes responsible choices feel effortless.</h3>
+            <p>User / Design goal</p>
+            <h3>Make responsible decisions feel simple and personal.</h3>
+            <span>
+              Combine clear product details, skin guidance, recycling, and community in one
+              approachable system.
+            </span>
           </article>
         </div>
       </section>
 
       <section className="nc-section">
-        <p className="nc-label">04 / Brand direction</p>
-        <div className="nc-section-copy">
-          <h2>A soft, earthy identity built around continuity and care.</h2>
-          <p>
-            Clean typography and restrained organic tones give NaturCycle an elegant beauty
-            presence while keeping the environmental mission visible.
-          </p>
-        </div>
-        <div className="nc-palette" aria-label="NaturCycle color palette">
-          <span style={{ '--swatch': '#D2B9C8' }}>#D2B9C8</span>
-          <span style={{ '--swatch': '#54BF97' }}>#54BF97</span>
-          <span style={{ '--swatch': '#7D918A' }}>#7D918A</span>
-          <span style={{ '--swatch': '#E3DAD4' }}>#E3DAD4</span>
-        </div>
-        <StudyImage file="brand.webp" alt="NaturCycle logo system and visual identity" />
-      </section>
-
-      <section className="nc-section">
-        <p className="nc-label">05 / Research</p>
-        <div className="nc-section-copy">
-          <h2>Comparative research revealed where transparency could become a service.</h2>
-          <p>
-            ELATE, The Body Shop, The Ordinary, and LUSH were reviewed across product variety,
-            packaging, loyalty, support, personalization, and sustainability. The opportunity was
-            to combine eco-friendly products with skin analysis, recyclable packaging, clear
-            impact information, and personalized services.
-          </p>
-        </div>
-        <div className="nc-visual-grid">
-          <StudyImage file="research.webp" alt="NaturCycle comparative research board" />
-          <StudyImage file="comparison.webp" alt="Competitor comparison matrix" />
-        </div>
-      </section>
-
-      <section className="nc-section">
-        <p className="nc-label">06 / Personas</p>
-        <div className="nc-persona-intro">
-          <h2>Two perspectives, one shared desire to make healthier choices.</h2>
-        </div>
-        <div className="nc-personas">
-          <article>
-            <StudyImage file="persona-lilith.webp" alt="Lilith Norma user persona" />
-            <div>
-              <span>Primary persona / 24 / North York</span>
-              <h3>Lilith Norma</h3>
-              <p>
-                A design consultant who prioritizes cruelty-free, sustainable products and wants
-                beauty choices that genuinely match her values.
-              </p>
-            </div>
-          </article>
-          <article>
-            <StudyImage file="persona-alex.webp" alt="Alex Turner user persona" />
-            <div>
-              <span>Secondary persona / 28 / Fitness trainer</span>
-              <h3>Alex Turner</h3>
-              <p>
-                Health and wellness focused, Alex wants products that support both personal care
-                and the planet without adding friction to his routine.
-              </p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section className="nc-section">
-        <p className="nc-label">07 / Journey and flow</p>
-        <div className="nc-section-copy">
-          <h2>From discovery to delivery, with sustainability present at every step.</h2>
-          <p>
-            The journey covers onboarding, browsing, product details, the Sustainability Hub,
-            community, cart, checkout, confirmation, and order tracking. Testing helped simplify
-            decision points and refine the validated flow.
-          </p>
-        </div>
-        <StudyImage file="validated-flow.webp" alt="Validated NaturCycle user flow" />
-        <StudyImage file="journey-map.webp" alt="NaturCycle user journey map" />
-      </section>
-
-      <section className="nc-section">
-        <p className="nc-label">08 / Information architecture</p>
-        <div className="nc-split">
-          <div>
-            <h2>A clear structure for shopping, learning, and participating.</h2>
-            <p>
-              The architecture connects Products, Favorites, Account, Cart, Community, and
-              Sustainability with deeper paths for recycling, impact reports, green beauty guides,
-              DIY tips, customer stories, and discussion.
-            </p>
+        <SectionHeading
+          index="04 / Research"
+          title="The opportunity was not another beauty shop."
+          intro="Competitor research showed space for a service that connects sustainability, transparent information, recycling, and personalization."
+        />
+        <div className="nc-research-layout">
+          <div className="nc-competitors">
+            {['ELATE', 'The Body Shop', 'The Ordinary', 'LUSH'].map((name) => (
+              <span key={name}>{name}</span>
+            ))}
           </div>
-          <StudyImage file="sitemap.webp" alt="NaturCycle information architecture sitemap" />
+          <figure className="nc-research-image">
+            <img src={studyAsset('comparison.webp')} alt="NaturCycle comparative research matrix" />
+          </figure>
+        </div>
+        <div className="nc-insight">
+          <p>Key insight</p>
+          <strong>
+            Sustainability becomes more useful when it appears inside everyday product decisions,
+            not on a separate information page.
+          </strong>
         </div>
       </section>
 
       <section className="nc-section">
-        <p className="nc-label">09 / Sketches and testing</p>
-        <div className="nc-section-copy">
-          <h2>Fast exploration before committing to interface detail.</h2>
-          <p>
-            Eight-minute speed sketches explored landing-page structures. A/B testing identified
-            the stronger direction, and the selected approach was refined around simplicity,
-            usability, and sustainable storytelling.
-          </p>
+        <SectionHeading
+          index="05 / Personas"
+          title="Different routines, shared values."
+          intro="Two focused personas kept the experience grounded in practical needs rather than abstract sustainability claims."
+        />
+        <div className="nc-persona-grid">
+          <article>
+            <p className="nc-persona-type">Primary persona</p>
+            <h3>Lilith Norma</h3>
+            <p className="nc-persona-summary">Eco-conscious design consultant, 24, North York.</p>
+            <dl>
+              <div><dt>Goal</dt><dd>Find cruelty-free products aligned with her values.</dd></div>
+              <div><dt>Frustration</dt><dd>Vague claims and time-consuming product research.</dd></div>
+              <div><dt>NaturCycle helps</dt><dd>Compare ingredients, impact, and recycling options quickly.</dd></div>
+            </dl>
+          </article>
+          <article>
+            <p className="nc-persona-type">Secondary persona</p>
+            <h3>Alex Turner</h3>
+            <p className="nc-persona-summary">Fitness trainer interested in wellness and responsible choices.</p>
+            <dl>
+              <div><dt>Goal</dt><dd>Connect personal care with whole-body wellness.</dd></div>
+              <div><dt>Frustration</dt><dd>Does not know where to begin with sustainable beauty.</dd></div>
+              <div><dt>NaturCycle helps</dt><dd>Receive guidance and build a manageable routine.</dd></div>
+            </dl>
+          </article>
         </div>
-        <div className="nc-visual-grid">
-          <StudyImage file="sketches.webp" alt="NaturCycle speed sketches" />
-          <StudyImage file="ab-testing.webp" alt="NaturCycle A/B testing results" />
-        </div>
-        <StudyImage file="wireframes.webp" alt="NaturCycle wireframe sketches" />
       </section>
 
-      <section className="nc-section nc-midfi">
-        <p className="nc-label">10 / Mid-fidelity wireframes</p>
-        <div className="nc-section-copy">
-          <h2>The core experience, mapped screen by screen.</h2>
-          <p>
-            Login, signup, home, products, product details, checkout, sustainability, and account
-            screens established the app’s hierarchy before visual polish.
-          </p>
+      <section className="nc-section">
+        <SectionHeading
+          index="06 / User flow"
+          title="A clear path from discovery to delivery."
+          intro="The flow keeps education and community close to commerce without interrupting the primary task."
+        />
+        <div className="nc-flow" aria-label="NaturCycle user flow">
+          {flowSteps.map((step, index) => (
+            <div key={step}>
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <p>{step}</p>
+            </div>
+          ))}
         </div>
-        <StudyImage file="midfi-one.webp" alt="NaturCycle mid-fidelity wireframes, set one" />
-        <StudyImage file="midfi-two.webp" alt="NaturCycle mid-fidelity wireframes, set two" />
+      </section>
+
+      <section className="nc-section">
+        <SectionHeading
+          index="07 / Wireframes"
+          title="Explore quickly, test early, refine with purpose."
+          intro="The process moved from broad layout exploration to a consistent screen system."
+        />
+        <div className="nc-process-grid">
+          {process.map((item) => (
+            <article key={item.title}>
+              <figure>
+                <img src={studyAsset(item.image)} alt={`NaturCycle ${item.title}`} loading="lazy" />
+              </figure>
+              <p className="nc-process-number">{item.title}</p>
+              <h3>{item.text}</h3>
+              <span>{item.change}</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="nc-section nc-final">
+        <SectionHeading
+          index="08 / Final screens"
+          title="A calm interface for informed beauty choices."
+          intro="The final direction balances editorial beauty imagery with practical information and predictable mobile patterns."
+        />
+        <div className="nc-screen-grid">
+          {finalScreens.map(([file, label]) => (
+            <figure key={file}>
+              <div>
+                <img
+                  src={studyAsset(`screens/${file}`)}
+                  alt={`NaturCycle ${label} screen`}
+                  loading="lazy"
+                />
+              </div>
+              <figcaption>{label}</figcaption>
+            </figure>
+          ))}
+        </div>
       </section>
 
       <section className="nc-section nc-reflection">
-        <p className="nc-label">11 / Reflection</p>
-        <div>
-          <h2>Sustainability becomes useful when it is designed into the experience.</h2>
+        <SectionHeading index="09 / Reflection" title="Sustainability works best when it feels actionable." />
+        <div className="nc-reflection-copy">
           <p>
-            NaturCycle shows how innovation and environmental responsibility can work together in
-            beauty. Skin analysis, virtual try-ons, recycling programs, product transparency, and
-            education turn sustainability from a claim into practical value.
+            This project reinforced that innovation only matters when people can understand and
+            use it. Skin analysis and virtual try-ons add personalization; recycling programs and
+            education turn environmental intent into repeatable action.
           </p>
-          <a href={prototypeUrl} target="_blank" rel="noreferrer" className="nc-prototype">
-            View prototype ↗
-          </a>
+          <p>
+            I learned to reduce a broad mission into focused decisions: clearer information,
+            shorter flows, consistent patterns, and features that support both the user and the
+            planet.
+          </p>
         </div>
-        <StudyImage file="reflection.webp" alt="NaturCycle final app screen and reflection" />
+      </section>
+
+      <section className="nc-cta">
+        <p>Explore the interaction or return to the portfolio.</p>
+        <div>
+          <a href={prototypeUrl} target="_blank" rel="noreferrer">View prototype ↗</a>
+          <Link to="/">Back to projects</Link>
+        </div>
       </section>
 
       <footer className="nc-footer">
-        <Link to="/">← Back to selected work</Link>
+        <span>NaturCycle / UX case study</span>
         <span>© 2026 Parisa Mohri</span>
       </footer>
     </main>
