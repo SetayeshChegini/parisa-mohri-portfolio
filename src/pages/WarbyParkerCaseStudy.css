@@ -1,0 +1,624 @@
+.warby-page {
+  --warby-blue: #11a8df;
+  --warby-blue-soft: rgba(17, 168, 223, 0.14);
+  --warby-line: rgba(255, 255, 255, 0.14);
+  background: var(--site-bg, #151515);
+}
+
+.warby-page,
+.warby-page * {
+  box-sizing: border-box;
+}
+
+.warby-page img {
+  display: block;
+  max-width: 100%;
+}
+
+.warby-nav a {
+  transition: color 180ms ease;
+}
+
+.warby-nav a:hover {
+  color: var(--warby-blue);
+}
+
+.warby-hero {
+  position: relative;
+  padding-top: clamp(72px, 10vh, 120px);
+}
+
+.warby-hero-copy {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.4fr);
+  gap: 28px 8vw;
+  align-items: end;
+  margin-bottom: clamp(52px, 7vh, 86px);
+}
+
+.warby-eyebrow {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--warby-blue);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.warby-hero h1 {
+  margin: 0;
+  font-size: clamp(70px, 10.5vw, 158px);
+  font-weight: 400;
+  line-height: 0.82;
+  letter-spacing: 0;
+}
+
+.warby-hero h1 span {
+  display: block;
+  color: var(--warby-blue);
+  font-size: 0.52em;
+  font-style: italic;
+  line-height: 1.1;
+}
+
+.warby-hero-summary {
+  max-width: 470px;
+  margin: 0 0 10px;
+  color: #c7c4bf;
+  font-size: clamp(20px, 2.1vw, 29px);
+  line-height: 1.4;
+}
+
+.warby-hero-line,
+.warby-section-heading i,
+.warby-final-line {
+  display: block;
+  height: 2px;
+  background: var(--warby-blue);
+  transform-origin: left;
+}
+
+.warby-hero-line {
+  grid-column: 1 / -1;
+  width: min(220px, 34vw);
+  margin-top: 12px;
+}
+
+.warby-hero-media {
+  border: 1px solid rgba(17, 168, 223, 0.36);
+  background: #f5f4f1;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.24);
+}
+
+.warby-hero-media img {
+  width: 100%;
+  height: auto;
+}
+
+.warby-section-heading .case-study-index {
+  color: var(--warby-blue);
+}
+
+.warby-section-heading i {
+  width: 92px;
+  margin-top: 34px;
+}
+
+.warby-overview {
+  display: grid;
+  grid-template-columns: 1fr 0.82fr;
+  gap: 8vw;
+  align-items: start;
+}
+
+.warby-scan-copy p {
+  margin: 0;
+  color: #d5d2cc;
+  font-size: clamp(26px, 3vw, 42px);
+  line-height: 1.34;
+}
+
+.warby-overview dl {
+  margin: 0;
+}
+
+.warby-overview dl div {
+  display: grid;
+  grid-template-columns: 0.38fr 1fr;
+  gap: 20px;
+  padding: 19px 0;
+  border-top: 1px solid var(--warby-line);
+}
+
+.warby-overview dl div:last-child {
+  border-bottom: 1px solid var(--warby-line);
+}
+
+.warby-overview dt {
+  color: #7f7d79;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.warby-overview dd {
+  margin: 0;
+  color: #d6d3ce;
+  font-size: 17px;
+}
+
+.warby-foundation {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 6vw;
+  align-items: start;
+}
+
+.warby-focus-image {
+  min-width: 0;
+  margin: 0;
+}
+
+.warby-focus-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+  object-fit: contain;
+  object-position: center;
+  box-shadow: 0 18px 58px rgba(0, 0, 0, 0.2);
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.warby-focus-image:hover img {
+  transform: scale(1.008);
+}
+
+.warby-focus-image figcaption {
+  padding-top: 12px;
+  color: #797773;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.warby-frame-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.warby-frame-grid article {
+  position: relative;
+  min-height: 190px;
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.warby-frame-grid article i {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(17, 168, 223, 0.3);
+  pointer-events: none;
+  transition: border-color 220ms ease;
+}
+
+.warby-frame-grid article:hover i {
+  border-color: var(--warby-blue);
+}
+
+.warby-frame-grid h3,
+.warby-approach-grid h3,
+.warby-persona-grid h3 {
+  margin: 0 0 14px;
+  font-size: clamp(24px, 2.3vw, 34px);
+  font-weight: 400;
+}
+
+.warby-frame-grid p,
+.warby-approach-grid p,
+.warby-persona-grid p {
+  margin: 0;
+  color: #999691;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.warby-wide-board {
+  margin-top: clamp(70px, 9vh, 112px);
+}
+
+.warby-lens-split,
+.warby-goal-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3vw;
+}
+
+.warby-lens-split article,
+.warby-goal-split article {
+  min-height: 360px;
+  padding: clamp(34px, 4vw, 58px);
+  border: 1px solid rgba(17, 168, 223, 0.3);
+  border-radius: 50% / 20%;
+  background: rgba(17, 168, 223, 0.035);
+}
+
+.warby-lens-split span,
+.warby-goal-split span,
+.warby-persona-grid span,
+.warby-approach-grid span,
+.warby-funnel span {
+  color: var(--warby-blue);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.warby-lens-split h3 {
+  margin: 52px 0 18px;
+  font-size: clamp(35px, 4vw, 58px);
+  font-weight: 400;
+  line-height: 1.02;
+}
+
+.warby-lens-split p,
+.warby-goal-split p {
+  margin: 0;
+  color: #a9a6a1;
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.warby-audience-layout {
+  display: grid;
+  grid-template-columns: 0.72fr 1.28fr;
+  gap: 6vw;
+  align-items: start;
+  margin-top: clamp(70px, 9vh, 112px);
+}
+
+.warby-audience-list article {
+  display: grid;
+  grid-template-columns: 38px 1fr;
+  column-gap: 20px;
+  padding: 24px 0;
+  border-top: 1px solid var(--warby-line);
+}
+
+.warby-audience-list article:last-child {
+  border-bottom: 1px solid var(--warby-line);
+}
+
+.warby-audience-list span {
+  grid-row: 1 / 3;
+  color: var(--warby-blue);
+  font-size: 11px;
+}
+
+.warby-audience-list h3 {
+  margin: 0 0 8px;
+  font-size: 25px;
+  font-weight: 400;
+}
+
+.warby-audience-list p {
+  margin: 0;
+  color: #908d88;
+  line-height: 1.5;
+}
+
+.warby-persona-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.warby-persona-grid article {
+  min-height: 260px;
+  padding: 30px;
+  border-top: 2px solid var(--warby-blue);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.warby-persona-grid h3 {
+  margin-top: 46px;
+}
+
+.warby-persona-boards,
+.warby-concept-boards,
+.warby-roadmap-boards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3vw;
+  align-items: start;
+  margin-top: clamp(70px, 9vh, 112px);
+}
+
+.warby-goal-split article {
+  min-height: 290px;
+}
+
+.warby-goal-split p {
+  margin-top: 46px;
+  color: #d0cdc8;
+  font-size: clamp(24px, 2.8vw, 39px);
+  line-height: 1.3;
+}
+
+.warby-lens-detail {
+  overflow: hidden;
+  border: 1px solid rgba(17, 168, 223, 0.3);
+  background: #f5f4f1;
+}
+
+.warby-lens-detail figcaption {
+  padding: 12px 16px 14px;
+}
+
+.warby-approach-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: clamp(64px, 8vh, 96px);
+}
+
+.warby-approach-grid article {
+  min-height: 280px;
+  padding: 30px 26px;
+  border: 1px solid var(--warby-line);
+  background: rgba(255, 255, 255, 0.02);
+  transition: border-color 220ms ease, background 220ms ease;
+}
+
+.warby-approach-grid article:hover {
+  border-color: var(--warby-blue);
+  background: var(--warby-blue-soft);
+}
+
+.warby-approach-grid h3 {
+  margin-top: 58px;
+}
+
+.warby-funnel {
+  display: grid;
+  gap: clamp(52px, 8vh, 92px);
+}
+
+.warby-funnel article {
+  display: grid;
+  grid-template-columns: minmax(0, 1.28fr) minmax(280px, 0.72fr);
+  gap: 5vw;
+  align-items: center;
+}
+
+.warby-funnel article:nth-child(even) img {
+  grid-column: 2;
+}
+
+.warby-funnel article:nth-child(even) div {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.warby-funnel img {
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
+  object-fit: contain;
+}
+
+.warby-funnel h3 {
+  margin: 24px 0 16px;
+  font-size: clamp(34px, 4vw, 58px);
+  font-weight: 400;
+}
+
+.warby-funnel p {
+  margin: 0;
+  color: #96938e;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.warby-roadmap {
+  position: relative;
+  display: grid;
+  gap: 0;
+  max-width: 980px;
+  margin-inline: auto;
+}
+
+.warby-roadmap > i {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 42px;
+  width: 1px;
+  background: var(--warby-blue);
+  transform-origin: top;
+}
+
+.warby-roadmap article {
+  position: relative;
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  gap: 28px;
+  padding: 0 0 52px;
+}
+
+.warby-roadmap article > span {
+  display: grid;
+  z-index: 1;
+  width: 86px;
+  height: 86px;
+  place-items: center;
+  border: 1px solid var(--warby-blue);
+  border-radius: 50%;
+  background: var(--site-bg, #151515);
+  color: var(--warby-blue);
+}
+
+.warby-roadmap h3 {
+  margin: 4px 0 10px;
+  font-size: 31px;
+  font-weight: 400;
+}
+
+.warby-roadmap p {
+  margin: 0;
+  color: #8f8c87;
+  line-height: 1.5;
+}
+
+.warby-final {
+  width: min(1280px, calc(100% - 8vw));
+  margin-inline: auto;
+}
+
+.warby-final-line {
+  width: 100%;
+  margin-top: clamp(58px, 7vh, 86px);
+}
+
+.warby-closing {
+  max-width: 920px;
+  margin: clamp(44px, 6vh, 72px) 0 0 auto;
+  color: #dedbd6;
+  font-size: clamp(32px, 4.4vw, 62px);
+  line-height: 1.12;
+}
+
+.warby-cta p {
+  margin: 0;
+  color: #77746f;
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.warby-cta a {
+  color: #ece9e4;
+  font-size: clamp(26px, 3vw, 42px);
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.warby-cta a:hover {
+  color: var(--warby-blue);
+  transform: translateX(5px);
+}
+
+@media (max-width: 980px) {
+  .warby-foundation,
+  .warby-audience-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .warby-frame-grid {
+    margin-top: 30px;
+  }
+
+  .warby-approach-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .warby-persona-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .warby-persona-grid article {
+    min-height: 220px;
+  }
+}
+
+@media (max-width: 760px) {
+  .warby-hero-copy,
+  .warby-overview,
+  .warby-lens-split,
+  .warby-goal-split,
+  .warby-persona-boards,
+  .warby-concept-boards,
+  .warby-roadmap-boards,
+  .warby-funnel article {
+    grid-template-columns: 1fr;
+  }
+
+  .warby-hero h1 {
+    font-size: clamp(62px, 21vw, 104px);
+  }
+
+  .warby-hero-summary {
+    max-width: 560px;
+  }
+
+  .warby-lens-split article,
+  .warby-goal-split article {
+    min-height: 0;
+    border-radius: 48% / 16%;
+  }
+
+  .warby-funnel article:nth-child(even) img,
+  .warby-funnel article:nth-child(even) div {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .warby-funnel article div {
+    padding-bottom: 12px;
+  }
+
+  .warby-final {
+    width: min(100% - 36px, 680px);
+  }
+}
+
+@media (max-width: 560px) {
+  .warby-frame-grid,
+  .warby-approach-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .warby-frame-grid article,
+  .warby-approach-grid article {
+    min-height: 0;
+  }
+
+  .warby-lens-split article,
+  .warby-goal-split article {
+    padding: 34px 26px;
+    border-radius: 70px;
+  }
+
+  .warby-lens-split h3 {
+    margin-top: 34px;
+  }
+
+  .warby-roadmap > i {
+    left: 30px;
+  }
+
+  .warby-roadmap article {
+    grid-template-columns: 62px 1fr;
+    gap: 20px;
+  }
+
+  .warby-roadmap article > span {
+    width: 62px;
+    height: 62px;
+  }
+
+  .warby-roadmap h3 {
+    font-size: 25px;
+  }
+}
+
+@media (hover: none) {
+  .warby-focus-image:hover img,
+  .warby-cta a:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .warby-page *,
+  .warby-page *::before,
+  .warby-page *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
