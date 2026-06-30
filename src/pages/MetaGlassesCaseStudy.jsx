@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from 'framer-motion'
+import { useLayoutEffect } from 'react'
 import { Link } from 'react-router-dom'
 import './MetaGlassesCaseStudy.css'
 
@@ -53,6 +54,10 @@ function RippleDivider() {
 
 function MetaGlassesCaseStudy() {
   const reduceMotion = useReducedMotion()
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [])
 
   return (
     <main className="mg-page">
