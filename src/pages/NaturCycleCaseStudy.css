@@ -499,32 +499,40 @@
 }
 
 .nc-cta {
-  padding: 11vh 0;
+  padding: 7vh 0;
   border-top: 1px solid var(--nc-line);
 }
 
 .nc-cta > p {
-  margin: 0 0 34px;
+  max-width: 280px;
+  margin: 0;
   color: var(--nc-muted);
-  font-size: 13px;
-  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 1.45;
 }
 
 .nc-cta > div {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .nc-cta a {
-  display: flex;
-  min-height: 120px;
+  display: inline-flex;
+  min-height: 0;
   align-items: center;
-  justify-content: space-between;
-  padding: 28px;
+  justify-content: center;
+  padding: 12px 18px;
   border: 1px solid #ffffff55;
-  font-size: clamp(28px, 3vw, 46px);
-  transition: background 180ms ease, color 180ms ease;
+  border-radius: 3px;
+  font-size: 15px;
+  line-height: 1.2;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
 .nc-cta a:first-child {
@@ -532,9 +540,24 @@
   color: #1d211f;
 }
 
+.nc-cta a:last-child {
+  background: transparent;
+  color: #d5d2cd;
+}
+
 .nc-cta a:hover {
+  opacity: 0.88;
+  transform: translateY(-2px);
+}
+
+.nc-cta a:first-child:hover {
   background: #fff;
   color: #151515;
+}
+
+.nc-cta a:last-child:hover {
+  border-color: #ffffff99;
+  color: #fff;
 }
 
 .nc-footer {
@@ -767,5 +790,13 @@
   .nc-goal-grid,
   .nc-persona-grid {
     gap: 42px;
+  }
+
+  .nc-cta > div {
+    width: 100%;
+  }
+
+  .nc-cta a {
+    flex: 1 1 160px;
   }
 }

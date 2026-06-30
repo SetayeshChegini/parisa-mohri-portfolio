@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import './NaturCycleCaseStudy.css'
 import './CaseStudy.css'
@@ -60,19 +61,62 @@ const finalScreens = [
   ['account.webp', 'My account'],
 ]
 
+function Reveal({ children, className = '', delay = 0 }) {
+  const reduceMotion = useReducedMotion()
+
+  return (
+    <motion.div
+      className={className}
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.16 }}
+      transition={{ duration: 0.68, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  )
+}
+
+function AnimatedSection({ children, className }) {
+  const reduceMotion = useReducedMotion()
+
+  return (
+    <motion.section
+      className={className}
+      initial={reduceMotion ? false : { opacity: 0, y: 28 }}
+      whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.08 }}
+      transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.section>
+  )
+}
+
 function SectionHeading({ index, title, intro }) {
   return (
-    <div className="nc-section-heading case-study-heading">
+    <Reveal className="nc-section-heading case-study-heading">
       <p className="case-study-index">{index}</p>
       <div>
         <h2>{title}</h2>
         {intro && <p className="nc-section-intro case-study-intro">{intro}</p>}
       </div>
-    </div>
+    </Reveal>
   )
 }
 
 function NaturCycleCaseStudy() {
+  const reduceMotion = useReducedMotion()
+  const itemMotion = (delay = 0) =>
+    reduceMotion
+      ? {}
+      : {
+          initial: { opacity: 0, y: 22, scale: 0.99 },
+          whileInView: { opacity: 1, y: 0, scale: 1 },
+          viewport: { once: true, amount: 0.16 },
+          transition: { duration: 0.64, delay, ease: [0.22, 1, 0.36, 1] },
+        }
+
   return (
     <main className="nc-page case-study-page">
       <nav className="nc-nav case-study-nav" aria-label="Case study navigation">
@@ -81,20 +125,30 @@ function NaturCycleCaseStudy() {
       </nav>
 
       <header className="nc-hero case-study-hero">
-        <div className="nc-hero-copy case-study-hero-copy">
+        <motion.div
+          className="nc-hero-copy case-study-hero-copy"
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+        >
           <p className="nc-eyebrow">Sustainable Beauty Mobile App</p>
           <h1>NaturCycle</h1>
           <p className="nc-summary">
             A mobile experience that makes sustainable beauty choices clearer through product
             transparency, skin analysis, recycling, education, and community.
           </p>
-        </div>
+        </motion.div>
 
-        <figure className="nc-hero-media case-study-hero-media">
+        <motion.figure
+          className="nc-hero-media case-study-hero-media"
+          initial={reduceMotion ? false : { opacity: 0, scale: 1.025 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+        >
           <img src={imagePath('naturecycle.png')} alt="NaturCycle mobile app mockup" />
-        </figure>
+        </motion.figure>
 
-        <dl className="nc-meta">
+        <motion.dl className="nc-meta" {...itemMotion(0.14)}>
           <div>
             <dt>Role</dt>
             <dd>UX/UI Designer<br />UX/UI Researcher</dd>
@@ -107,30 +161,30 @@ function NaturCycleCaseStudy() {
             <dt>Methods</dt>
             <dd>User interviews<br />Comparative research<br />A/B testing<br />Usability thinking</dd>
           </div>
-        </dl>
+        </motion.dl>
       </header>
 
-      <section className="nc-section nc-overview case-study-section">
+      <AnimatedSection className="nc-section nc-overview case-study-section">
         <SectionHeading
           index="01 / Overview"
           title="Sustainable choices without the extra work."
           intro="NaturCycle brings shopping, education, recycling, and community into one calm mobile experience."
         />
         <div className="nc-overview-grid">
-          <p>
+          <motion.p {...itemMotion(0.04)}>
             Users can understand what a product contains, see its environmental impact, receive
             personalized skin guidance, and discover practical ways to recycle or reduce waste.
-          </p>
-          <ul>
+          </motion.p>
+          <motion.ul {...itemMotion(0.1)}>
             <li>Transparent product information</li>
             <li>Personalized skin analysis</li>
             <li>Recycling programs and impact reports</li>
             <li>Education and community knowledge</li>
-          </ul>
+          </motion.ul>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="nc-section nc-problem case-study-section">
+      <AnimatedSection className="nc-section nc-problem case-study-section">
         <p className="nc-index">02 / Problem</p>
         <blockquote>
           “How might we make sustainable beauty easier, clearer, and more engaging through a
@@ -142,31 +196,31 @@ function NaturCycleCaseStudy() {
           <p>Recycling programs feel separate from shopping.</p>
           <p>Users need guidance without information overload.</p>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="nc-section case-study-section">
+      <AnimatedSection className="nc-section case-study-section">
         <SectionHeading index="03 / Goals" title="Align customer value with responsible growth." />
         <div className="nc-goal-grid">
-          <article>
+          <motion.article {...itemMotion(0.04)}>
             <p>Business / Client goal</p>
             <h3>Bridge sustainable beauty and customer convenience.</h3>
             <span>
               Build trust through transparency while supporting discovery, loyalty, and responsible
               purchasing.
             </span>
-          </article>
-          <article>
+          </motion.article>
+          <motion.article {...itemMotion(0.12)}>
             <p>User / Design goal</p>
             <h3>Make responsible decisions feel simple and personal.</h3>
             <span>
               Combine clear product details, skin guidance, recycling, and community in one
               approachable system.
             </span>
-          </article>
+          </motion.article>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="nc-section case-study-section">
+      <AnimatedSection className="nc-section case-study-section">
         <SectionHeading
           index="04 / Research"
           title="The opportunity was not another beauty shop."
@@ -178,9 +232,9 @@ function NaturCycleCaseStudy() {
               <span key={name}>{name}</span>
             ))}
           </div>
-          <figure className="nc-research-image">
+          <motion.figure className="nc-research-image" {...itemMotion(0.08)}>
             <img src={studyAsset('comparison.webp')} alt="NaturCycle comparative research matrix" />
-          </figure>
+          </motion.figure>
         </div>
         <div className="nc-insight">
           <p>Key insight</p>
@@ -189,16 +243,16 @@ function NaturCycleCaseStudy() {
             not on a separate information page.
           </strong>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="nc-section case-study-section">
+      <AnimatedSection className="nc-section case-study-section">
         <SectionHeading
           index="05 / Personas"
           title="Different routines, shared values."
           intro="Two focused personas kept the experience grounded in practical needs rather than abstract sustainability claims."
         />
         <div className="nc-persona-grid">
-          <article>
+          <motion.article {...itemMotion(0.04)}>
             <p className="nc-persona-type">Primary persona</p>
             <h3>Lilith Norma</h3>
             <p className="nc-persona-summary">Eco-conscious design consultant, 24, North York.</p>
@@ -207,8 +261,8 @@ function NaturCycleCaseStudy() {
               <div><dt>Frustration</dt><dd>Vague claims and time-consuming product research.</dd></div>
               <div><dt>NaturCycle helps</dt><dd>Compare ingredients, impact, and recycling options quickly.</dd></div>
             </dl>
-          </article>
-          <article>
+          </motion.article>
+          <motion.article {...itemMotion(0.12)}>
             <p className="nc-persona-type">Secondary persona</p>
             <h3>Alex Turner</h3>
             <p className="nc-persona-summary">Fitness trainer interested in wellness and responsible choices.</p>
@@ -217,11 +271,11 @@ function NaturCycleCaseStudy() {
               <div><dt>Frustration</dt><dd>Does not know where to begin with sustainable beauty.</dd></div>
               <div><dt>NaturCycle helps</dt><dd>Receive guidance and build a manageable routine.</dd></div>
             </dl>
-          </article>
+          </motion.article>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="nc-section case-study-section">
+      <AnimatedSection className="nc-section case-study-section">
         <SectionHeading
           index="06 / User flow"
           title="A clear path from discovery to delivery."
@@ -229,43 +283,43 @@ function NaturCycleCaseStudy() {
         />
         <div className="nc-flow" aria-label="NaturCycle user flow">
           {flowSteps.map((step, index) => (
-            <div key={step}>
+            <motion.div key={step} {...itemMotion(index * 0.035)}>
               <span>{String(index + 1).padStart(2, '0')}</span>
               <p>{step}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="nc-section case-study-section">
+      <AnimatedSection className="nc-section case-study-section">
         <SectionHeading
           index="07 / Wireframes"
           title="Explore quickly, test early, refine with purpose."
           intro="The process moved from broad layout exploration to a consistent screen system."
         />
         <div className="nc-process-grid">
-          {process.map((item) => (
-            <article key={item.title}>
+          {process.map((item, index) => (
+            <motion.article key={item.title} {...itemMotion(index * 0.07)}>
               <figure>
                 <img src={studyAsset(item.image)} alt={`NaturCycle ${item.title}`} loading="lazy" />
               </figure>
               <p className="nc-process-number">{item.title}</p>
               <h3>{item.text}</h3>
               <span>{item.change}</span>
-            </article>
+            </motion.article>
           ))}
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="nc-section nc-final case-study-section">
+      <AnimatedSection className="nc-section nc-final case-study-section">
         <SectionHeading
           index="08 / Final screens"
           title="A calm interface for informed beauty choices."
           intro="The final direction balances editorial beauty imagery with practical information and predictable mobile patterns."
         />
         <div className="nc-screen-grid">
-          {finalScreens.map(([file, label]) => (
-            <figure key={file}>
+          {finalScreens.map(([file, label], index) => (
+            <motion.figure key={file} {...itemMotion((index % 4) * 0.055)}>
               <div>
                 <img
                   src={studyAsset(`screens/${file}`)}
@@ -274,12 +328,12 @@ function NaturCycleCaseStudy() {
                 />
               </div>
               <figcaption>{label}</figcaption>
-            </figure>
+            </motion.figure>
           ))}
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="nc-section nc-reflection case-study-section">
+      <AnimatedSection className="nc-section nc-reflection case-study-section">
         <SectionHeading index="09 / Reflection" title="Sustainability works best when it feels actionable." />
         <div className="nc-reflection-copy">
           <p>
@@ -293,15 +347,15 @@ function NaturCycleCaseStudy() {
             planet.
           </p>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="nc-cta case-study-cta">
+      <AnimatedSection className="nc-cta case-study-cta">
         <p>Explore the interaction or return to the portfolio.</p>
         <div>
           <a href={prototypeUrl} target="_blank" rel="noreferrer">View prototype ↗</a>
           <Link to="/">Back to projects</Link>
         </div>
-      </section>
+      </AnimatedSection>
 
       <footer className="nc-footer case-study-footer">
         <span>NaturCycle / UX case study</span>

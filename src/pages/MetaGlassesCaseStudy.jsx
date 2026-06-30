@@ -101,7 +101,7 @@ function SupportingVisual({ asset, alt, label, className = '' }) {
   return (
     <Reveal className={`mg-supporting-visual ${className}`}>
       <div>
-        <img src={studyAsset(asset)} alt={alt} loading="lazy" />
+        <img src={studyAsset(asset)} alt={alt} />
       </div>
       <p>{label}</p>
     </Reveal>
@@ -116,7 +116,7 @@ function MetaGlassesCaseStudy() {
   }, [])
 
   return (
-    <main className="mg-page case-study-page">
+    <main className="mg-page case-study-page meta-case-study">
       <nav className="mg-nav case-study-nav" aria-label="Meta Glasses case study navigation">
         <Link to="/">&larr; Back to projects</Link>
         <span>Parisa Mohri / Motion case study</span>

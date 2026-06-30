@@ -254,8 +254,7 @@
 
 .mg-supporting-visual > div {
   position: relative;
-  overflow: hidden;
-  aspect-ratio: 4 / 3;
+  overflow: visible;
   border: 1px solid rgba(209, 11, 24, 0.32);
   border-radius: 4px;
   background: #050505;
@@ -264,13 +263,14 @@
 .mg-supporting-visual img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  transition: opacity 240ms ease;
 }
 
 .mg-supporting-visual:hover img {
-  transform: scale(1.025);
+  opacity: 0.96;
 }
 
 .mg-supporting-visual > p {
@@ -281,7 +281,7 @@
 }
 
 .mg-visual-brand img {
-  object-position: 62% center;
+  object-position: center;
 }
 
 .mg-event-layout {
@@ -292,7 +292,7 @@
 }
 
 .mg-visual-event > div {
-  aspect-ratio: 16 / 10;
+  height: auto;
 }
 
 .mg-visual-event img {
@@ -467,21 +467,21 @@
 
 .mg-asset-grid {
   display: grid;
-  grid-template-columns: 0.84fr 1.16fr;
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 64px;
   margin-top: 64px;
 }
 
 .mg-asset-grid .mg-supporting-visual > div {
-  aspect-ratio: 16 / 11;
+  height: auto;
 }
 
 .mg-visual-assets img {
-  object-position: 70% center;
+  object-position: center;
 }
 
 .mg-visual-design img {
-  object-position: 58% center;
+  object-position: center;
 }
 
 .mg-motion-system {
@@ -596,8 +596,8 @@
 .mg-outcome-hero > img {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
 }
 
 .mg-outcome-hero > div p,
@@ -614,7 +614,7 @@
 }
 
 .mg-visual-motion > div {
-  aspect-ratio: 4 / 3;
+  height: auto;
 }
 
 .mg-outcome-statement > p {
@@ -819,6 +819,38 @@
     flex-direction: column;
     gap: 26px;
   }
+}
+
+.meta-case-study img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.meta-case-study .mg-supporting-visual,
+.meta-case-study .mg-supporting-visual > div {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.meta-case-study .mg-supporting-visual img,
+.meta-case-study .mg-outcome-hero > img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+}
+
+.meta-case-study .mg-motion-demo {
+  overflow: hidden;
+}
+
+.meta-case-study .mg-motion-demo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 @media (max-width: 520px) {
