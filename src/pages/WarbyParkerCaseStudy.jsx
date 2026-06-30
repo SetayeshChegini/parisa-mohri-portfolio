@@ -1,5 +1,6 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import {
+  AnimatePresence,
   motion,
   useReducedMotion,
   useScroll,
@@ -34,21 +35,135 @@ const audienceGroups = [
   },
 ]
 
-const personas = [
+const personaProfiles = [
   {
+    id: 'brittany',
     name: 'Brittany Adams',
+    initials: 'BA',
     role: 'Elementary school teacher',
-    need: 'Colourful glasses and a low-friction way to shop around a busy schedule.',
+    details: '37 years old / Vancouver / $75,000',
+    objective: "Find colourful glasses that fit her personal style without losing time going to a store.",
+    motivations: 'Saving time, a comfortable all-day fit, personal style, and being a positive role model.',
+    dislikes: 'Crowded stores, complicated returns, and shopping experiences that demand too much time.',
+    traits: ['Books', 'Colour', 'Community'],
+    journey: [
+      {
+        stage: 'Awareness',
+        action: 'Sees a transit campaign and hears a friend mention Warby Parker.',
+        feeling: 'Curious, but distracted by a packed teaching schedule.',
+        channel: 'Transit, podcasts, and word of mouth',
+      },
+      {
+        stage: 'Research',
+        action: 'Reads blog reviews and watches YouTube try-on videos.',
+        feeling: 'Relieved that she can buy, compare, and return frames online.',
+        channel: 'Google, YouTube, and TikTok',
+      },
+      {
+        stage: 'Decide',
+        action: 'Uses virtual try-on and compares a two-pair promotion.',
+        feeling: 'Confident she can test colour without committing too early.',
+        channel: 'Website and virtual try-on',
+      },
+      {
+        stage: 'Purchase',
+        action: 'Applies a newsletter code and orders two frames online.',
+        feeling: 'Hopeful that the fit will be as effortless as the purchase.',
+        channel: 'Website and email',
+      },
+      {
+        stage: 'Review',
+        action: 'Leaves a review and shares photos with friends.',
+        feeling: 'Delighted by the fit and already thinking about another colour.',
+        channel: 'Website and WhatsApp',
+      },
+    ],
   },
   {
+    id: 'jenna',
     name: 'Jenna Foster',
+    initials: 'JF',
     role: 'Fashion PR intern',
-    need: 'Modern frames that express her style without creating financial pressure.',
+    details: '24 years old / Toronto / $40,000',
+    objective: 'Purchase a modern, expressive pair of glasses at an attainable price.',
+    motivations: 'Building a personal style, staying independent, and avoiding debt.',
+    dislikes: 'Corporate language, unrelatable brands, and styles that feel too conservative.',
+    traits: ['Fashion', 'Social', 'Mobile'],
+    journey: [
+      {
+        stage: 'Awareness',
+        action: 'Sees an influencer wearing Warby Parker and encounters an Instagram ad.',
+        feeling: 'Interested because the frames look stylish without feeling unreachable.',
+        channel: 'TikTok and Instagram',
+      },
+      {
+        stage: 'Research',
+        action: 'Searches TikTok reviews and asks friends about the brand.',
+        feeling: 'Questions the price, but likes the design and social mission.',
+        channel: 'TikTok and word of mouth',
+      },
+      {
+        stage: 'Decide',
+        action: 'Visits the site, checks styles, and reads customer reviews.',
+        feeling: 'Reassured by strong reviews and the range of expressive frames.',
+        channel: 'Website and reviews',
+      },
+      {
+        stage: 'Purchase',
+        action: 'Buys through mobile and uses a first-purchase promotion.',
+        feeling: 'Excited, with a little uncertainty about how the frame will look.',
+        channel: 'Mobile site and promo code',
+      },
+      {
+        stage: 'Review',
+        action: 'Posts an outfit photo and tells friends the glasses feel affordable.',
+        feeling: 'Proud that the frame works across her wardrobe.',
+        channel: 'Instagram',
+      },
+    ],
   },
   {
+    id: 'mark',
     name: 'Mark Hayes',
+    initials: 'MH',
     role: 'Investment manager',
-    need: 'Professional progressive lenses with trusted guidance and minimal shopping time.',
+    details: '51 years old / Oakville / $140,000',
+    objective: 'Buy progressive lenses for the first time with efficient, expert guidance.',
+    motivations: 'Spending as little time shopping as possible and looking polished at work.',
+    dislikes: 'Shopping online, unclear choices, and trend-led communication that feels too young.',
+    traits: ['Briefcase', 'News', 'In-store'],
+    journey: [
+      {
+        stage: 'Awareness',
+        action: 'Reads about Warby Parker and hears a recommendation from his children.',
+        feeling: 'Trusts the recommendation, but needs proof of professional quality.',
+        channel: 'News and word of mouth',
+      },
+      {
+        stage: 'Research',
+        action: 'Checks Google reviews and compares progressive-lens providers.',
+        feeling: 'Overwhelmed by the number of options and technical details.',
+        channel: 'Google, reviews, and articles',
+      },
+      {
+        stage: 'Decide',
+        action: 'Tries frames in store and asks an optician for a recommendation.',
+        feeling: 'Reassured by knowledgeable staff and a clear fitting process.',
+        channel: 'Store and optician',
+      },
+      {
+        stage: 'Purchase',
+        action: 'Has lenses measured, pays, and returns to collect the finished pair.',
+        feeling: 'Optimistic that the glasses will feel as polished as a designer pair.',
+        channel: 'Physical store',
+      },
+      {
+        stage: 'Review',
+        action: 'Shares the experience on Facebook and leaves a Google review.',
+        feeling: 'Satisfied that the result matches premium designer quality.',
+        channel: 'Facebook and Google Reviews',
+      },
+    ],
   },
 ]
 
@@ -137,6 +252,150 @@ function FocusImage({ src, alt, caption, className = '', delay = 0 }) {
       <img src={assetPath(src)} alt={alt} />
       {caption && <figcaption>{caption}</figcaption>}
     </motion.figure>
+  )
+}
+
+function PersonaExplorer() {
+  const reduceMotion = useReducedMotion()
+  const [activePersona, setActivePersona] = useState(0)
+  const [activeJourney, setActiveJourney] = useState(0)
+  const profile = personaProfiles[activePersona]
+  const journey = profile.journey[activeJourney]
+
+  const selectPersona = (index) => {
+    setActivePersona(index)
+    setActiveJourney(0)
+  }
+
+  return (
+    <div className="warby-persona-explorer">
+      <div className="warby-persona-tabs" role="tablist" aria-label="Compare personas">
+        {personaProfiles.map((persona, index) => (
+          <button
+            className={activePersona === index ? 'is-active' : ''}
+            type="button"
+            role="tab"
+            aria-selected={activePersona === index}
+            aria-controls="warby-persona-panel"
+            onClick={() => selectPersona(index)}
+            key={persona.id}
+          >
+            <span>0{index + 1}</span>
+            <strong>{persona.name}</strong>
+            <small>{persona.role}</small>
+          </button>
+        ))}
+      </div>
+
+      <AnimatePresence mode="wait">
+        <motion.article
+          className="warby-persona-panel"
+          id="warby-persona-panel"
+          role="tabpanel"
+          aria-label={`${profile.name} persona`}
+          key={profile.id}
+          initial={reduceMotion ? false : 'fragmented'}
+          animate="assembled"
+          exit={reduceMotion ? undefined : { opacity: 0, filter: 'blur(7px)' }}
+          variants={{
+            fragmented: {},
+            assembled: { transition: { staggerChildren: 0.075 } },
+          }}
+          transition={{ duration: 0.26 }}
+        >
+          <motion.header
+            className="warby-persona-header"
+            variants={{
+              fragmented: reduceMotion ? {} : { opacity: 0, x: -32, y: -18 },
+              assembled: { opacity: 1, x: 0, y: 0 },
+            }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="warby-persona-portrait" aria-hidden="true">
+              <span>{profile.initials}</span>
+              <i />
+            </div>
+            <div>
+              <p>{profile.role}</p>
+              <h3>{profile.name}</h3>
+              <span>{profile.details}</span>
+            </div>
+            <ul aria-label="Lifestyle signals">
+              {profile.traits.map((trait) => <li key={trait}>{trait}</li>)}
+            </ul>
+          </motion.header>
+
+          <div className="warby-persona-profile">
+            {[
+              ['Objective', profile.objective],
+              ['Motivations', profile.motivations],
+              ['Friction', profile.dislikes],
+            ].map(([label, text], index) => (
+              <motion.section
+                key={label}
+                variants={{
+                  fragmented: reduceMotion
+                    ? {}
+                    : { opacity: 0, x: index === 1 ? 28 : -24, y: index * 10 },
+                  assembled: { opacity: 1, x: 0, y: 0 },
+                }}
+                transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <span>0{index + 1} / {label}</span>
+                <p>{text}</p>
+              </motion.section>
+            ))}
+          </div>
+
+          <motion.div
+            className="warby-journey"
+            variants={{
+              fragmented: reduceMotion ? {} : { opacity: 0, y: 30, scale: 0.985 },
+              assembled: { opacity: 1, y: 0, scale: 1 },
+            }}
+            transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="warby-journey-heading">
+              <p>Journey</p>
+              <span>Select a stage to inspect the experience</span>
+            </div>
+            <div className="warby-journey-tabs" role="tablist" aria-label={`${profile.name} journey`}>
+              {profile.journey.map((stage, index) => (
+                <button
+                  className={activeJourney === index ? 'is-active' : ''}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeJourney === index}
+                  aria-controls="warby-journey-detail"
+                  onClick={() => setActiveJourney(index)}
+                  key={stage.stage}
+                >
+                  <span>0{index + 1}</span>
+                  {stage.stage}
+                </button>
+              ))}
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                className="warby-journey-detail"
+                id="warby-journey-detail"
+                role="tabpanel"
+                key={`${profile.id}-${journey.stage}`}
+                initial={reduceMotion ? false : { opacity: 0, y: 12, filter: 'blur(5px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+                transition={{ duration: 0.32 }}
+              >
+                <div><span>Action</span><p>{journey.action}</p></div>
+                <div><span>Feeling</span><p>{journey.feeling}</p></div>
+                <div><span>Channel</span><p>{journey.channel}</p></div>
+              </motion.div>
+            </AnimatePresence>
+          </motion.div>
+        </motion.article>
+      </AnimatePresence>
+    </div>
   )
 }
 
@@ -355,47 +614,10 @@ function WarbyParkerCaseStudy() {
       <section className="warby-section case-study-section">
         <SectionHeading
           index="04 / Personas"
-          title="Different lives, the same need for clarity."
-          intro="The audience work captures three distinct paths to purchase: self-expression, convenience, and confidence."
+          title="Three perspectives, one explorable journey."
+          intro="Switch between each persona and move through the decision stages to compare motivations, friction, emotions, and channels."
         />
-        <motion.div
-          className="warby-persona-grid"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: reduceMotion ? 0 : 0.1 } },
-          }}
-        >
-          {personas.map((persona) => (
-            <motion.article
-              key={persona.name}
-              variants={{
-                hidden: reduceMotion ? {} : { opacity: 0, filter: 'blur(8px)', y: 24 },
-                visible: { opacity: 1, filter: 'blur(0px)', y: 0 },
-              }}
-              transition={{ duration: 0.65 }}
-            >
-              <span>{persona.role}</span>
-              <h3>{persona.name}</h3>
-              <p>{persona.need}</p>
-            </motion.article>
-          ))}
-        </motion.div>
-        <div className="warby-persona-boards">
-          <FocusImage
-            src="personas-brittany-jenna.webp"
-            alt="Brittany Adams and Jenna Foster persona and journey boards"
-            caption="Brittany + Jenna / Personas and journeys"
-          />
-          <FocusImage
-            src="persona-mark.webp"
-            alt="Mark Hayes persona and journey board"
-            caption="Mark / Persona and journey"
-            delay={0.08}
-          />
-        </div>
+        <PersonaExplorer />
       </section>
 
       <section className="warby-section case-study-section">

@@ -204,16 +204,14 @@
 }
 
 .warby-frame-grid h3,
-.warby-approach-grid h3,
-.warby-persona-grid h3 {
+.warby-approach-grid h3 {
   margin: 0 0 14px;
   font-size: clamp(24px, 2.3vw, 34px);
   font-weight: 400;
 }
 
 .warby-frame-grid p,
-.warby-approach-grid p,
-.warby-persona-grid p {
+.warby-approach-grid p {
   margin: 0;
   color: #999691;
   font-size: 16px;
@@ -242,7 +240,6 @@
 
 .warby-lens-split span,
 .warby-goal-split span,
-.warby-persona-grid span,
 .warby-approach-grid span,
 .warby-funnel span {
   color: var(--warby-blue);
@@ -303,24 +300,292 @@
   line-height: 1.5;
 }
 
-.warby-persona-grid {
+.warby-persona-explorer {
+  --persona-surface: #1b1b1a;
+}
+
+.warby-persona-tabs {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  border-top: 1px solid var(--warby-line);
+  border-bottom: 1px solid var(--warby-line);
 }
 
-.warby-persona-grid article {
-  min-height: 260px;
+.warby-persona-tabs button {
+  position: relative;
+  min-width: 0;
+  padding: 22px 24px 24px;
+  border: 0;
+  border-right: 1px solid var(--warby-line);
+  background: transparent;
+  color: #83817d;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.warby-persona-tabs button:last-child {
+  border-right: 0;
+}
+
+.warby-persona-tabs button::after {
+  position: absolute;
+  right: 0;
+  bottom: -1px;
+  left: 0;
+  height: 2px;
+  background: var(--warby-blue);
+  content: '';
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: opacity 180ms ease, transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.warby-persona-tabs button:hover,
+.warby-persona-tabs button.is-active {
+  background: rgba(17, 168, 223, 0.055);
+  color: #f1efeb;
+}
+
+.warby-persona-tabs button.is-active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.warby-persona-tabs button > span {
+  display: block;
+  margin-bottom: 18px;
+  color: var(--warby-blue);
+  font-size: 10px;
+}
+
+.warby-persona-tabs strong,
+.warby-persona-tabs small {
+  display: block;
+}
+
+.warby-persona-tabs strong {
+  font-size: clamp(23px, 2.2vw, 32px);
+  font-weight: 400;
+}
+
+.warby-persona-tabs small {
+  margin-top: 5px;
+  color: #777570;
+  font-size: 12px;
+}
+
+.warby-persona-panel {
+  padding-top: clamp(52px, 7vh, 84px);
+}
+
+.warby-persona-header {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr) auto;
+  gap: 34px;
+  align-items: center;
+  padding-bottom: clamp(42px, 6vh, 68px);
+  border-bottom: 1px solid var(--warby-line);
+}
+
+.warby-persona-portrait {
+  position: relative;
+  display: grid;
+  width: 150px;
+  aspect-ratio: 1;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(17, 168, 223, 0.45);
+  border-radius: 50%;
+  background: #082a4c;
+}
+
+.warby-persona-portrait > span {
+  z-index: 2;
+  color: #81d9f6;
+  font-size: 14px;
+  transform: translateY(-42px);
+}
+
+.warby-persona-portrait > i {
+  position: absolute;
+  inset: 0;
+}
+
+.warby-persona-portrait > i::before {
+  position: absolute;
+  top: 42px;
+  left: 50%;
+  width: 42px;
+  height: 48px;
+  border: 2px solid #5ecaf0;
+  border-radius: 48% 48% 44% 44%;
+  content: '';
+  transform: translateX(-50%);
+}
+
+.warby-persona-portrait > i::after {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  width: 116px;
+  height: 78px;
+  border: 2px solid #5ecaf0;
+  border-radius: 58% 58% 0 0;
+  content: '';
+  transform: translateX(-50%);
+}
+
+.warby-persona-header > div:nth-child(2) > p {
+  margin: 0 0 8px;
+  color: var(--warby-blue);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.warby-persona-header h3 {
+  margin: 0;
+  color: #f1efeb;
+  font-size: clamp(48px, 6vw, 82px);
+  font-weight: 400;
+  line-height: 0.95;
+}
+
+.warby-persona-header > div:nth-child(2) > span {
+  display: block;
+  margin-top: 13px;
+  color: #96938e;
+  font-size: 14px;
+}
+
+.warby-persona-header ul {
+  display: grid;
+  gap: 8px;
+  min-width: 150px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.warby-persona-header li {
+  padding: 8px 12px;
+  border: 1px solid rgba(17, 168, 223, 0.28);
+  color: #9fdcf2;
+  font-size: 11px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.warby-persona-profile {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-top: clamp(36px, 5vh, 56px);
+  background: var(--warby-line);
+}
+
+.warby-persona-profile section {
+  min-width: 0;
+  min-height: 210px;
   padding: 30px;
-  border-top: 2px solid var(--warby-blue);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--persona-surface);
 }
 
-.warby-persona-grid h3 {
-  margin-top: 46px;
+.warby-persona-profile span,
+.warby-journey-detail span {
+  color: var(--warby-blue);
+  font-size: 10px;
+  text-transform: uppercase;
 }
 
-.warby-persona-boards,
+.warby-persona-profile p {
+  margin: 54px 0 0;
+  color: #c3c0ba;
+  font-size: 18px;
+  line-height: 1.48;
+}
+
+.warby-journey {
+  margin-top: clamp(58px, 8vh, 96px);
+}
+
+.warby-journey-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+
+.warby-journey-heading p {
+  margin: 0;
+  color: #f1efeb;
+  font-size: 28px;
+}
+
+.warby-journey-heading span {
+  color: #777570;
+  font-size: 12px;
+}
+
+.warby-journey-tabs {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.warby-journey-tabs button {
+  position: relative;
+  min-height: 104px;
+  padding: 18px 16px;
+  border: 1px solid var(--warby-line);
+  border-radius: 2px;
+  background: transparent;
+  color: #97948f;
+  font: inherit;
+  font-size: 17px;
+  cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+}
+
+.warby-journey-tabs button:hover,
+.warby-journey-tabs button.is-active {
+  border-color: var(--warby-blue);
+  background: #082a4c;
+  color: #f1efeb;
+}
+
+.warby-journey-tabs button span {
+  display: block;
+  margin-bottom: 13px;
+  color: var(--warby-blue);
+  font-size: 9px;
+}
+
+.warby-journey-detail {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr 0.72fr;
+  gap: 1px;
+  margin-top: 12px;
+  background: var(--warby-line);
+}
+
+.warby-journey-detail > div {
+  min-width: 0;
+  min-height: 168px;
+  padding: 26px 28px;
+  background: var(--persona-surface);
+}
+
+.warby-journey-detail p {
+  margin: 28px 0 0;
+  color: #d1cec8;
+  font-size: 17px;
+  line-height: 1.48;
+}
+
 .warby-concept-boards,
 .warby-roadmap-boards {
   display: grid;
@@ -516,12 +781,18 @@
     grid-template-columns: 1fr 1fr;
   }
 
-  .warby-persona-grid {
-    grid-template-columns: 1fr;
+  .warby-persona-header {
+    grid-template-columns: 150px 1fr;
   }
 
-  .warby-persona-grid article {
-    min-height: 220px;
+  .warby-persona-header ul {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .warby-persona-header li {
+    min-width: 120px;
   }
 }
 
@@ -530,7 +801,6 @@
   .warby-overview,
   .warby-lens-split,
   .warby-goal-split,
-  .warby-persona-boards,
   .warby-concept-boards,
   .warby-roadmap-boards,
   .warby-funnel article {
@@ -543,6 +813,78 @@
 
   .warby-hero-summary {
     max-width: 560px;
+  }
+
+  .warby-persona-tabs,
+  .warby-journey-tabs {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .warby-persona-tabs::-webkit-scrollbar,
+  .warby-journey-tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .warby-persona-tabs button {
+    flex: 0 0 min(74vw, 270px);
+    scroll-snap-align: start;
+  }
+
+  .warby-persona-header {
+    grid-template-columns: 110px 1fr;
+    gap: 24px;
+  }
+
+  .warby-persona-portrait {
+    width: 108px;
+  }
+
+  .warby-persona-portrait > span {
+    transform: translateY(-31px);
+  }
+
+  .warby-persona-portrait > i::before {
+    top: 30px;
+    width: 31px;
+    height: 36px;
+  }
+
+  .warby-persona-portrait > i::after {
+    width: 86px;
+    height: 58px;
+  }
+
+  .warby-persona-header h3 {
+    font-size: clamp(42px, 13vw, 66px);
+  }
+
+  .warby-persona-profile,
+  .warby-journey-detail {
+    grid-template-columns: 1fr;
+  }
+
+  .warby-persona-profile section {
+    min-height: 0;
+  }
+
+  .warby-persona-profile p {
+    margin-top: 28px;
+  }
+
+  .warby-journey-tabs button {
+    flex: 0 0 150px;
+    scroll-snap-align: start;
+  }
+
+  .warby-journey-detail > div {
+    min-height: 0;
+  }
+
+  .warby-journey-detail p {
+    margin-top: 18px;
   }
 
   .warby-lens-split article,
@@ -585,6 +927,30 @@
 
   .warby-lens-split h3 {
     margin-top: 34px;
+  }
+
+  .warby-persona-header {
+    grid-template-columns: 1fr;
+  }
+
+  .warby-persona-portrait {
+    width: 124px;
+  }
+
+  .warby-persona-header ul {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+  }
+
+  .warby-persona-header li {
+    min-width: 0;
+    padding-inline: 6px;
+  }
+
+  .warby-journey-heading {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .warby-roadmap > i {
