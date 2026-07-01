@@ -5,19 +5,13 @@ import {
   useReducedMotion,
 } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import WarbyBrandFoundation from '../components/WarbyBrandFoundation'
 import WarbyOverview from '../components/WarbyOverview'
 import './CaseStudy.css'
 import './WarbyParkerCaseStudy.css'
 
 const assetPath = (filename) =>
   `${import.meta.env.BASE_URL}projects/warby-parker/${filename}`
-
-const brandValues = [
-  ['Style & quality', 'Designer-minded frames made to feel considered and current.'],
-  ['Accessible pricing', 'Premium materials without the traditional luxury markup.'],
-  ['Transparency & trust', 'A simple value story customers can understand quickly.'],
-  ['Social responsibility', 'A purchase model connected to broader community impact.'],
-]
 
 const audienceGroups = [
   {
@@ -485,44 +479,7 @@ function WarbyParkerCaseStudy() {
           title="A clear frame for the brand."
           intro="The strategic foundation balances affordable luxury, expressive design, convenience, and social responsibility."
         />
-        <div className="warby-foundation">
-          <FocusImage
-            src="brand-key.webp"
-            alt="Warby Parker brand key and competitive landscape"
-            caption="Brand key / Competitive context"
-          />
-          <motion.div
-            className="warby-frame-grid"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.25 }}
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: reduceMotion ? 0 : 0.09 } },
-            }}
-          >
-            {brandValues.map(([title, text]) => (
-              <motion.article
-                key={title}
-                variants={{
-                  hidden: reduceMotion ? {} : { opacity: 0, y: 22, scale: 0.98 },
-                  visible: { opacity: 1, y: 0, scale: 1 },
-                }}
-                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <i aria-hidden="true" />
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </motion.article>
-            ))}
-          </motion.div>
-        </div>
-        <FocusImage
-          src="brand-values.webp"
-          alt="Warby Parker brand values and personality board"
-          caption="Values, personality, and visual audience"
-          className="warby-wide-board"
-        />
+        <WarbyBrandFoundation />
       </section>
 
       <section className="warby-section case-study-section">

@@ -268,13 +268,6 @@
   margin-top: 34px;
 }
 
-.warby-foundation {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 6vw;
-  align-items: start;
-}
-
 .warby-focus-image {
   min-width: 0;
   margin: 0;
@@ -301,39 +294,12 @@
   text-transform: uppercase;
 }
 
-.warby-frame-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-.warby-frame-grid article {
-  position: relative;
-  min-height: 190px;
-  padding: 28px;
-  background: rgba(255, 255, 255, 0.025);
-}
-
-.warby-frame-grid article i {
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(17, 168, 223, 0.3);
-  pointer-events: none;
-  transition: border-color 220ms ease;
-}
-
-.warby-frame-grid article:hover i {
-  border-color: var(--warby-blue);
-}
-
-.warby-frame-grid h3,
 .warby-approach-grid h3 {
   margin: 0 0 14px;
   font-size: clamp(24px, 2.3vw, 34px);
   font-weight: 400;
 }
 
-.warby-frame-grid p,
 .warby-approach-grid p {
   margin: 0;
   color: #999691;
@@ -863,13 +829,8 @@
 }
 
 @media (max-width: 980px) {
-  .warby-foundation,
   .warby-audience-layout {
     grid-template-columns: 1fr;
-  }
-
-  .warby-frame-grid {
-    margin-top: 30px;
   }
 
   .warby-approach-grid {
@@ -1028,12 +989,10 @@
 }
 
 @media (max-width: 560px) {
-  .warby-frame-grid,
   .warby-approach-grid {
     grid-template-columns: 1fr;
   }
 
-  .warby-frame-grid article,
   .warby-approach-grid article {
     min-height: 0;
   }
