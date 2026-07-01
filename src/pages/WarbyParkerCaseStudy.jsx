@@ -5,6 +5,7 @@ import {
   useReducedMotion,
 } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import WarbyOverview from '../components/WarbyOverview'
 import './CaseStudy.css'
 import './WarbyParkerCaseStudy.css'
 
@@ -476,38 +477,7 @@ function WarbyParkerCaseStudy() {
         </div>
       </header>
 
-      <section className="warby-section case-study-section">
-        <SectionHeading
-          index="01 / Overview"
-          title="Affordable style, brought back into focus."
-          intro="This pitch reframes Warby Parker as the point where designer-minded quality, accessible pricing, and social value meet."
-        />
-        <div className="warby-overview">
-          <motion.div
-            className="warby-scan-copy"
-            initial={reduceMotion ? false : { opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
-            whileInView={reduceMotion ? {} : { opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <p>
-              Warby Parker helped reshape direct-to-consumer eyewear. As the category became more
-              crowded and prices increased, the campaign needed to make its value visible again.
-            </p>
-          </motion.div>
-          <motion.dl
-            initial={reduceMotion ? false : { opacity: 0, x: 28 }}
-            whileInView={reduceMotion ? {} : { opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-          >
-            <div><dt>Project</dt><dd>Integrated campaign pitch</dd></div>
-            <div><dt>Focus</dt><dd>Brand strategy + art direction</dd></div>
-            <div><dt>Channels</dt><dd>OOH, social, retail</dd></div>
-            <div><dt>Campaign</dt><dd>Spot the Difference</dd></div>
-          </motion.dl>
-        </div>
-      </section>
+      <WarbyOverview />
 
       <section className="warby-section case-study-section">
         <SectionHeading

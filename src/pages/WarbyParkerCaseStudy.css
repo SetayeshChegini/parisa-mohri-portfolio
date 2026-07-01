@@ -268,48 +268,6 @@
   margin-top: 34px;
 }
 
-.warby-overview {
-  display: grid;
-  grid-template-columns: 1fr 0.82fr;
-  gap: 8vw;
-  align-items: start;
-}
-
-.warby-scan-copy p {
-  margin: 0;
-  color: #d5d2cc;
-  font-size: clamp(23px, 2.5vw, 34px);
-  line-height: 1.34;
-}
-
-.warby-overview dl {
-  margin: 0;
-}
-
-.warby-overview dl div {
-  display: grid;
-  grid-template-columns: 0.38fr 1fr;
-  gap: 20px;
-  padding: 19px 0;
-  border-top: 1px solid var(--warby-line);
-}
-
-.warby-overview dl div:last-child {
-  border-bottom: 1px solid var(--warby-line);
-}
-
-.warby-overview dt {
-  color: #7f7d79;
-  font-size: 11px;
-  text-transform: uppercase;
-}
-
-.warby-overview dd {
-  margin: 0;
-  color: #d6d3ce;
-  font-size: 17px;
-}
-
 .warby-foundation {
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
@@ -956,7 +914,6 @@
     font-size: clamp(34px, 11vw, 52px);
   }
 
-  .warby-overview,
   .warby-lens-split,
   .warby-goal-split,
   .warby-concept-boards,
