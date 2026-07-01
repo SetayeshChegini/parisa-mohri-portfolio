@@ -304,14 +304,13 @@ function PersonaExplorer() {
           <motion.header
             className="warby-persona-header"
             variants={{
-              fragmented: reduceMotion ? {} : { opacity: 0, x: -32, y: -18 },
+              fragmented: reduceMotion ? {} : { opacity: 0, x: -18, y: -8 },
               assembled: { opacity: 1, x: 0, y: 0 },
             }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="warby-persona-portrait" aria-hidden="true">
               <span>{profile.initials}</span>
-              <i />
             </div>
             <div>
               <p>{profile.role}</p>
@@ -334,7 +333,7 @@ function PersonaExplorer() {
                 variants={{
                   fragmented: reduceMotion
                     ? {}
-                    : { opacity: 0, x: index === 1 ? 28 : -24, y: index * 10 },
+                    : { opacity: 0, x: index === 1 ? 12 : -12, y: 6 },
                   assembled: { opacity: 1, x: 0, y: 0 },
                 }}
                 transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
@@ -348,7 +347,7 @@ function PersonaExplorer() {
           <motion.div
             className="warby-journey"
             variants={{
-              fragmented: reduceMotion ? {} : { opacity: 0, y: 30, scale: 0.985 },
+              fragmented: reduceMotion ? {} : { opacity: 0, y: 16, scale: 0.99 },
               assembled: { opacity: 1, y: 0, scale: 1 },
             }}
             transition={{ duration: 0.58, ease: [0.22, 1, 0.36, 1] }}
