@@ -473,10 +473,10 @@ function WarbyParkerCaseStudy() {
 
       <WarbyOverview />
 
-      <section className="warby-section case-study-section">
+      <section className="warby-section warby-brand-section case-study-section">
         <SectionHeading
           index="02 / Brand foundation"
-          title="A clear frame for the brand."
+          title={<>A clear frame<br />for the brand.</>}
           intro="The strategic foundation balances affordable luxury, expressive design, convenience, and social responsibility."
         />
         <WarbyBrandFoundation />

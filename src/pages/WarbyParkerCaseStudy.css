@@ -46,6 +46,38 @@
   line-height: 1.65;
 }
 
+.warby-page .warby-brand-section {
+  padding: 72px 0 80px;
+}
+
+.warby-brand-section .case-study-heading {
+  display: block;
+  margin-bottom: 48px;
+}
+
+.warby-brand-section .case-study-index {
+  margin-bottom: 14px;
+}
+
+.warby-brand-section .case-study-heading h2 {
+  margin-bottom: 10px;
+  font-size: clamp(28px, 3.5vw, 44px);
+  line-height: 1.1;
+}
+
+.warby-brand-section .case-study-intro {
+  max-width: 560px;
+  margin-top: 0;
+  color: #777571;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.warby-brand-section .warby-section-heading i {
+  width: 72px;
+  margin-top: 20px;
+}
+
 .warby-nav a {
   transition: color 180ms ease;
 }
@@ -863,6 +895,10 @@
 
   .warby-page .case-study-section {
     padding: clamp(52px, 14vw, 72px) 0;
+  }
+
+  .warby-page .warby-brand-section {
+    padding: 56px 0 64px;
   }
 
   .warby-page .case-study-heading {

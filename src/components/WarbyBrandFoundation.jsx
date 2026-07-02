@@ -137,7 +137,7 @@ function useCounter(target, trigger, duration = 700) {
   return String(count).padStart(2, '0')
 }
 
-function PhotoCell({ value, index, scanActive, reduceMotion }) {
+function PhotoCell({ value, index, reduceMotion }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, amount: 0.3 })
   const animatedCount = useCounter(
@@ -164,28 +164,11 @@ function PhotoCell({ value, index, scanActive, reduceMotion }) {
         ease: [0.22, 1, 0.36, 1],
       }}
     >
-      <motion.img
-        src={assetPath(value.img)}
-        alt={value.alt}
-        style={{ y: reduceMotion ? 0 : y }}
-      />
-
-      <motion.div
-        className="wbf-photo-overlay"
-        initial={reduceMotion ? false : { opacity: 0 }}
-        animate={scanActive ? { opacity: 1 } : { opacity: 0 }}
-        transition={{
-          duration: reduceMotion ? 0 : 0.6,
-          delay: reduceMotion ? 0 : index * 0.18,
-        }}
-        aria-hidden="true"
-      >
-        <span className="wbf-ov-num">{count}</span>
-        <strong className="wbf-ov-title">{value.title}</strong>
-        <p className="wbf-ov-text">{value.text}</p>
+      <motion.div className="wbf-photo-media" style={{ y: reduceMotion ? 0 : y }}>
+        <img src={assetPath(value.img)} alt={value.alt} />
       </motion.div>
 
-      <div className="wbf-photo-hover-overlay" aria-hidden="true">
+      <div className="wbf-photo-overlay" aria-hidden="true">
         <span className="wbf-ov-num">{count}</span>
         <strong className="wbf-ov-title">{value.title}</strong>
         <p className="wbf-ov-text">{value.text}</p>
@@ -196,10 +179,8 @@ function PhotoCell({ value, index, scanActive, reduceMotion }) {
 
 export default function WarbyBrandFoundation() {
   const sectionRef = useRef(null)
-  const stripRef = useRef(null)
   const reduceMotion = useReducedMotion()
   const rootInView = useInView(sectionRef, { once: true, amount: 0.15 })
-  const stripInView = useInView(stripRef, { once: true, amount: 0.4 })
   const rootText =
     'Affordable luxury eyewear with a commitment to style, quality, and social responsibility.'
   const scrambled = useScramble(rootText, rootInView && !reduceMotion)
@@ -216,13 +197,12 @@ export default function WarbyBrandFoundation() {
         <p className="wbf-root-text" aria-label={rootText}>{scrambled}</p>
       </motion.div>
 
-      <div className="wbf-photo-strip" ref={stripRef}>
+      <div className="wbf-photo-strip">
         {brandValues.map((value, index) => (
           <PhotoCell
             key={value.num}
             value={value}
             index={index}
-            scanActive={stripInView}
             reduceMotion={reduceMotion}
           />
         ))}
