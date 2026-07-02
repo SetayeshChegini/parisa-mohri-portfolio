@@ -7,26 +7,12 @@ import {
 import { Link } from 'react-router-dom'
 import WarbyBrandFoundation from '../components/WarbyBrandFoundation'
 import WarbyOverview from '../components/WarbyOverview'
+import WarbyProblemAudience from '../components/WarbyProblemAudience'
 import './CaseStudy.css'
 import './WarbyParkerCaseStudy.css'
 
 const assetPath = (filename) =>
   `${import.meta.env.BASE_URL}projects/warby-parker/${filename}`
-
-const audienceGroups = [
-  {
-    title: 'Style-conscious young adults',
-    detail: 'Gen Z and younger millennials seeking designer character at an attainable price.',
-  },
-  {
-    title: 'Busy professionals',
-    detail: 'Customers who value convenient discovery, virtual try-on, and easy returns.',
-  },
-  {
-    title: 'First-time eyewear buyers',
-    detail: 'People who need guidance, reassurance, and a clear reason to believe.',
-  },
-]
 
 const personaProfiles = [
   {
@@ -482,63 +468,7 @@ function WarbyParkerCaseStudy() {
         <WarbyBrandFoundation />
       </section>
 
-      <section className="warby-section case-study-section">
-        <SectionHeading
-          index="03 / Problem + audience"
-          title="Two lenses, one shared tension."
-          intro="Customers want distinctive, well-made eyewear, but rising prices can weaken the affordability promise that first made the brand stand out."
-        />
-        <div className="warby-lens-split">
-          <motion.article
-            initial={reduceMotion ? false : { opacity: 0, x: -54 }}
-            whileInView={reduceMotion ? {} : { opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <span>Problem</span>
-            <h3>Price is changing the perception.</h3>
-            <p>
-              The pitch must show that the increase supports better materials and modern design
-              while Warby Parker remains more attainable than traditional designer eyewear.
-            </p>
-          </motion.article>
-          <motion.article
-            initial={reduceMotion ? false : { opacity: 0, x: 54 }}
-            whileInView={reduceMotion ? {} : { opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <span>Insight</span>
-            <h3>The difference is not quality. It is price.</h3>
-            <p>
-              A direct comparison gives the audience a fast, memorable way to understand the
-              brand's material value without asking them to read a long explanation.
-            </p>
-          </motion.article>
-        </div>
-        <div className="warby-audience-layout">
-          <div className="warby-audience-list">
-            {audienceGroups.map((group, index) => (
-              <motion.article
-                key={group.title}
-                initial={reduceMotion ? false : { opacity: 0, x: -20 }}
-                whileInView={reduceMotion ? {} : { opacity: 1, x: 0 }}
-                viewport={{ once: true, amount: 0.35 }}
-                transition={{ duration: 0.55, delay: index * 0.08 }}
-              >
-                <span>0{index + 1}</span>
-                <h3>{group.title}</h3>
-                <p>{group.detail}</p>
-              </motion.article>
-            ))}
-          </div>
-          <FocusImage
-            src="target-audience.webp"
-            alt="Warby Parker target audience board"
-            caption="Primary audience segments"
-          />
-        </div>
-      </section>
+      <WarbyProblemAudience />
 
       <section className="warby-section case-study-section">
         <SectionHeading
