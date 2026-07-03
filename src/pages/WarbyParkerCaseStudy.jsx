@@ -6,6 +6,7 @@ import {
 } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import WarbyBrandFoundation from '../components/WarbyBrandFoundation'
+import WarbyGoalBrief from '../components/WarbyGoalBrief'
 import WarbyOverview from '../components/WarbyOverview'
 import WarbyProblemAudience from '../components/WarbyProblemAudience'
 import './CaseStudy.css'
@@ -479,42 +480,7 @@ function WarbyParkerCaseStudy() {
         <PersonaExplorer />
       </section>
 
-      <section className="warby-section case-study-section">
-        <SectionHeading
-          index="05 / Goal"
-          title="Reframe quality and price as allies."
-          intro="The creative brief turns research into one focused proposition: designer-level materials can exist without a designer-level price."
-        />
-        <div className="warby-goal-split">
-          <motion.article
-            initial={reduceMotion ? false : { opacity: 0, x: -44 }}
-            whileInView={reduceMotion ? {} : { opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.7 }}
-          >
-            <span>Overall goal</span>
-            <p>
-              Increase awareness of Warby Parker's material quality and affordability compared
-              with higher-priced alternatives.
-            </p>
-          </motion.article>
-          <motion.article
-            initial={reduceMotion ? false : { opacity: 0, x: 44 }}
-            whileInView={reduceMotion ? {} : { opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{ duration: 0.7 }}
-          >
-            <span>Single-minded proposition</span>
-            <p>The only difference between Warby Parker and designer glasses is the price.</p>
-          </motion.article>
-        </div>
-        <FocusImage
-          src="creative-brief.webp"
-          alt="Warby Parker Sacred Six creative brief"
-          caption="Sacred Six / Creative brief"
-          className="warby-wide-board"
-        />
-      </section>
+      <WarbyGoalBrief />
 
       <section className="warby-section case-study-section">
         <SectionHeading

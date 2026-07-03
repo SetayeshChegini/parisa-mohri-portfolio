@@ -343,33 +343,11 @@
   margin-top: clamp(48px, 6vw, 72px);
 }
 
-.warby-goal-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3vw;
-}
-
-.warby-goal-split article {
-  min-height: 280px;
-  padding: clamp(30px, 3.5vw, 44px);
-  border: 1px solid rgba(17, 168, 223, 0.3);
-  border-radius: 50% / 20%;
-  background: rgba(17, 168, 223, 0.035);
-}
-
-.warby-goal-split span,
 .warby-approach-grid span,
 .warby-funnel span {
   color: var(--warby-blue);
   font-size: 11px;
   text-transform: uppercase;
-}
-
-.warby-goal-split p {
-  margin: 0;
-  color: #a9a6a1;
-  font-size: 17px;
-  line-height: 1.55;
 }
 
 .warby-persona-explorer {
@@ -640,17 +618,6 @@
   margin-top: clamp(48px, 6vw, 72px);
 }
 
-.warby-goal-split article {
-  min-height: 230px;
-}
-
-.warby-goal-split p {
-  margin-top: 32px;
-  color: #d0cdc8;
-  font-size: clamp(21px, 2.3vw, 31px);
-  line-height: 1.3;
-}
-
 .warby-lens-detail {
   overflow: hidden;
   border: 1px solid rgba(17, 168, 223, 0.3);
@@ -858,7 +825,6 @@
     font-size: clamp(34px, 11vw, 52px);
   }
 
-  .warby-goal-split,
   .warby-concept-boards,
   .warby-roadmap-boards,
   .warby-funnel article {
@@ -952,11 +918,6 @@
     margin-top: 18px;
   }
 
-  .warby-goal-split article {
-    min-height: 0;
-    border-radius: 48% / 16%;
-  }
-
   .warby-funnel article:nth-child(even) img,
   .warby-funnel article:nth-child(even) div {
     grid-column: auto;
@@ -976,11 +937,6 @@
 
   .warby-approach-grid article {
     min-height: 0;
-  }
-
-  .warby-goal-split article {
-    padding: 34px 26px;
-    border-radius: 70px;
   }
 
   .warby-persona-header {
